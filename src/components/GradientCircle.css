@@ -1,0 +1,15 @@
+/* GradientCircle.css */
+.gradient-circle {
+  position: absolute;
+  width: 1000px; /* Adjust the size of the circle */
+  height: 1000px; /* Adjust the size of the circle */
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #122044 0%,    /* Start with purple color at the center */
+    transparent 70% /* Gradually fade to transparent towards the edges */
+  );
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
