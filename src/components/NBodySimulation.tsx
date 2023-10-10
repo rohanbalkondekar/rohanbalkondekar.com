@@ -28,7 +28,7 @@ const NBodySimulation: React.FC = () => {
 
   const createBodies = () => {
     // Add three bodies in the center
-    for (let i = 0; i <= 1; i++) {
+    for (let i = 0; i < 1; i++) {
       const body: Body = {
         x: window.innerWidth / 2,
         y: window.innerHeight / 2,
