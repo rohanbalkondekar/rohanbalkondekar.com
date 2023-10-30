@@ -1,0 +1,15 @@
+.spline-container {
+    position: fixed;
+    top: 20px; /* Adjust this value to change the distance from the top */
+    right: 20px; /* Adjust this value to change the distance from the right */
+    width: 600px; /* Set the fixed width of the component */
+    height: 600px; /* Set the fixed height of the component */
+    background: transparent; /* Set the background to transparent */
+    z-index: 999; /* Ensure it's on top of other elements if needed */
+  }
+  
+  /* Optionally, to make the canvas transparent as well */
+  .spline-container canvas {
+    background: transparent !important;
+  }
+  
