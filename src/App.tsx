@@ -7,11 +7,10 @@ function App() {
   return (
     <>
       <div className="spline-container">
-      <Spline scene="https://prod.spline.design/7xbjlBkVVxdgT4gV/scene.splinecode" />
+        <Spline scene="https://prod.spline.design/7xbjlBkVVxdgT4gV/scene.splinecode" />
       </div>
       <GradientCircle />
       <Header />
-      {/* <Spline scene="https://prod.spline.design/7xbjlBkVVxdgT4gV/scene.splinecode" /> */}
     </>
   )
 }

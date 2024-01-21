@@ -1,15 +1,31 @@
 .spline-container {
-    position: fixed;
-    top: 20px; /* Adjust this value to change the distance from the top */
-    right: 20px; /* Adjust this value to change the distance from the right */
-    width: 600px; /* Set the fixed width of the component */
-    height: 600px; /* Set the fixed height of the component */
-    background: transparent; /* Set the background to transparent */
-    z-index: 999; /* Ensure it's on top of other elements if needed */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 80vw; /* Using viewport width for responsiveness */
+  height: 80vh; /* Using viewport height for responsiveness */
+  background: transparent;
+  z-index: 1;
+  max-width: 600px; /* Max width for large screens */
+  max-height: 600px; /* Max height for large screens */
+}
+
+/* Media Queries */
+
+/* For tablets */
+@media (max-width: 768px) {
+  .spline-container {
+    display: none; /* Completely hide the container on tablet devices */
   }
-  
-  /* Optionally, to make the canvas transparent as well */
-  .spline-container canvas {
-    background: transparent !important;
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .spline-container {
+    display: none; /* Completely hide the container on tablet devices */
   }
-  
+  .header {
+    position: absolute !important;
+    margin-left: -185px !important;
+  }  
+}
