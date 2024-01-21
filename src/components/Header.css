@@ -34,3 +34,8 @@ body{
     word-wrap: break-word; /* Allow words to break and wrap to the next line */
   }
   
+  .header-subtitle-container {
+    display: flex; /* This will align the children in a row */
+    align-items: center; /* This will vertically center the children */
+    gap: 10px; /* This adds some space between the text and the image */
+  }
