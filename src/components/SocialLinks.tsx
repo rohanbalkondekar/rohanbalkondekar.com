@@ -37,6 +37,9 @@ const SocialLinks: React.FC = () => {
           </a>
         </li>
       </ul>
+      <h4>Contact:</h4>
+      <p>Email: <a href="mailto:rohan.balkondekar@gmail.com">rohan.balkondekar@gmail.com</a></p>
+      <p>Ph: <a href="tel:+919604295874">+91 9604295874</a></p>
     </div>
   );
 };

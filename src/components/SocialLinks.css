@@ -28,3 +28,7 @@
   .social-links a:hover {
     color: #025E73; /* Example hover color; change as desired */
   }
+  
+  .social-links p {
+    margin-bottom: -10px;
+    }

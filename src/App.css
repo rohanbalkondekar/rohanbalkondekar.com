@@ -8,6 +8,7 @@
   z-index: 1;
   max-width: 600px; /* Max width for large screens */
   max-height: 600px; /* Max height for large screens */
+  margin-top: 80px;
 }
 
 /* Media Queries */
