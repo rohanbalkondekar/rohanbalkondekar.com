@@ -1,0 +1,30 @@
+.social-links {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .social-links h4 {
+    margin-top: 80px;
+    margin-bottom: 0px;
+  }
+
+  .social-links ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .social-links li {
+    margin-bottom: 5px; /* Adjust to create more or less space between items */
+  }
+  
+  .social-links a {
+    text-decoration: none;
+    color: #0294A5; /* Example color; change as desired */
+    font-size: 16px;
+    font-weight: bold; /* This will make the text bold */
+    transition: color 0.3s ease; /* Optional: for a color change on hover */
+  }
+  
+  .social-links a:hover {
+    color: #025E73; /* Example hover color; change as desired */
+  }
