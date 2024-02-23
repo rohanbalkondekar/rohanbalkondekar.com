@@ -7,34 +7,34 @@ const SocialLinks: React.FC = () => {
       <h4>Find Me Here: </h4>
       <ul>
         <li>
-          <a href="https://www.linkedin.com/in/rohanbalkondekar/" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="https://www.linkedin.com/in/rohanbalkondekar/" target="_blank" rel="noopener noreferrer">
             linkedin.com/in/rohanbalkondekar
-          </a>
+          </a> </p>
         </li>
         <li>
-          <a href="https://github.com/rohanbalkondekar" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="https://github.com/rohanbalkondekar" target="_blank" rel="noopener noreferrer">
             github.com/rohanbalkondekar
-          </a>
+          </a>  </p>
         </li>
         <li>
-          <a href="http://hf.co/rohanbalkondekar" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="http://hf.co/rohanbalkondekar" target="_blank" rel="noopener noreferrer">
             hf.co/rohanbalkondekar
-          </a>
+          </a>  </p>
         </li>
         <li>
-          <a href="https://x.com/rohanbalkonde" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="https://x.com/rohanbalkonde" target="_blank" rel="noopener noreferrer">
             x.com/rohanbalkonde
-          </a>
+          </a>  </p>
         </li>
         <li>
-          <a href="https://medium.com/@rohanbalkondekar" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="https://medium.com/@rohanbalkondekar" target="_blank" rel="noopener noreferrer">
             medium.com/@rohanbalkondekar
-          </a>
+          </a>  </p>
         </li>
         <li>
-          <a href="https://www.instagram.com/rohanbalkondekar/" target="_blank" rel="noopener noreferrer">
+          <p> -  <a href="https://www.instagram.com/rohanbalkondekar/" target="_blank" rel="noopener noreferrer">
             instagram.com/rohanbalkondekar
-          </a>
+          </a> </p>
         </li>
       </ul>
       <h4>Contact:</h4>
