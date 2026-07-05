@@ -1,18 +1,441 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/Peacock.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rohan Balkondekar | Founder &amp; AI Lead</title>
+<meta name="description" content="Founder of Vibegrow and AI Lead at Xsolla. I build AI products and grow them in public, starting with this site.">
+<link rel="canonical" href="https://rohanbalkondekar.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 
-    <title>Rohan Balkondekar</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Rohan Balkondekar | Founder &amp; AI Lead">
+<meta property="og:description" content="Founder of Vibegrow and AI Lead at Xsolla. I build AI products and grow them in public, starting with this site.">
+<meta property="og:url" content="https://rohanbalkondekar.com/">
+<meta property="og:image" content="https://rohanbalkondekar.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@rohanbalkonde">
+<meta name="twitter:title" content="Rohan Balkondekar | Founder &amp; AI Lead">
+<meta name="twitter:description" content="Founder of Vibegrow and AI Lead at Xsolla. I build AI products and grow them in public, starting with this site.">
+<meta name="twitter:image" content="https://rohanbalkondekar.com/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rohan Balkondekar",
+  "url": "https://rohanbalkondekar.com/",
+  "jobTitle": "AI Lead",
+  "worksFor": { "@type": "Organization", "name": "Xsolla", "url": "https://xsolla.com/" },
+  "affiliation": { "@type": "Organization", "name": "Vibegrow", "url": "https://vibegrow.io/" },
+  "email": "mailto:rohan.balkondekar@gmail.com",
+  "sameAs": [
+    "https://github.com/rohanbalkondekar",
+    "https://x.com/rohanbalkonde",
+    "https://www.linkedin.com/in/rohanbalkondekar/",
+    "https://www.instagram.com/rohanbalkondekar/",
+    "https://hf.co/rohanbalkondekar",
+    "https://medium.com/@rohanbalkondekar"
+  ]
+}
+</script>
+
+<style>
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/geist.woff2") format("woff2");
+}
+
+:root {
+  --bg: #0F172A;
+  --heading: #E2E8F0;
+  --body: #94A3B8;
+  --faint: #64748B;
+  --card: rgba(30, 41, 59, 0.5);
+  --teal: #5EEAD4;
+  --teal-dim: rgba(45, 212, 191, 0.1);
+  color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+::selection { background: var(--teal); color: #0F172A; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(600px at 50% 20%, rgba(29, 78, 216, 0.12), transparent 80%);
+  transition: background 0.3s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+
+.layout {
+  position: relative;
+  z-index: 4;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 0 clamp(24px, 5vw, 96px);
+}
+@media (min-width: 1024px) {
+  .layout { display: grid; grid-template-columns: 1fr 1.18fr; gap: clamp(32px, 4vw, 64px); }
+}
+
+/* left column */
+.side { padding: 56px 0 8px; }
+@media (min-width: 1024px) {
+  .side {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 96px 0;
+  }
+}
+.side h1 {
+  font-size: clamp(38px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: var(--heading);
+}
+.side h1 a:hover { color: var(--teal); }
+.side .role { margin-top: 14px; font-size: 18px; font-weight: 500; line-height: 1.4; color: var(--heading); }
+.side .tagline { margin-top: 16px; max-width: 34ch; color: var(--body); }
+
+.in-page { display: none; }
+@media (min-width: 1024px) {
+  .in-page { display: block; margin-top: 64px; }
+  .in-page a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--faint);
+    transition: color 0.2s;
+  }
+  .in-page a::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--faint);
+    transition: width 0.25s ease, background 0.25s ease;
+  }
+  .in-page a:hover, .in-page a.active { color: var(--heading); }
+  .in-page a:hover::before, .in-page a.active::before { width: 64px; background: var(--heading); }
+}
+
+.socials { display: flex; align-items: center; gap: 22px; margin-top: 40px; list-style: none; }
+@media (min-width: 1024px) { .socials { margin-top: 0; } }
+.socials a { display: block; color: var(--body); transition: color 0.2s, transform 0.2s; }
+.socials a:hover { color: var(--heading); transform: translateY(-2px); }
+.socials svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+
+/* right column */
+main { padding: 24px 0 40px; }
+@media (min-width: 1024px) { main { padding: 96px 0; } }
+
+section { padding-bottom: 88px; scroll-margin-top: 96px; }
+@media (min-width: 1024px) { section { padding-bottom: 136px; } }
+
+.label {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 -24px 20px;
+  padding: 14px 24px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--heading);
+  background: rgba(15, 23, 42, 0.75);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+@media (min-width: 1024px) {
+  .label {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.prose p { max-width: 60ch; }
+.prose p + p { margin-top: 16px; }
+.prose a { color: var(--heading); font-weight: 550; transition: color 0.2s; }
+.prose a:hover { color: var(--teal); }
+
+/* experience & project rows */
+.xp { list-style: none; }
+.xp > li + li { margin-top: 14px; }
+@media (min-width: 1024px) {
+  .xp:hover .row { opacity: 0.5; }
+  .xp:hover .row:hover { opacity: 1; }
+}
+.row {
+  position: relative;
+  display: block;
+  padding: 20px;
+  margin: 0 -20px;
+  border-radius: 12px;
+  transition: opacity 0.25s, background 0.25s, box-shadow 0.25s;
+}
+@media (min-width: 640px) {
+  .row { display: grid; grid-template-columns: 128px 1fr; gap: 28px; }
+}
+@media (hover: hover) {
+  .row:hover {
+    background: var(--card);
+    box-shadow: inset 0 1px 0 0 rgba(148, 163, 184, 0.1), 0 6px 24px rgba(2, 6, 23, 0.35);
+  }
+}
+.dates {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding-top: 4px;
+  white-space: nowrap;
+}
+.row h4 { font-size: 16px; font-weight: 500; color: var(--heading); line-height: 1.45; }
+.row h4 a { transition: color 0.2s; }
+.row h4 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.row:hover h4 a { color: var(--teal); }
+.row h4 .ext { display: inline-block; font-size: 12px; transition: transform 0.2s; }
+.row:hover h4 .ext { transform: translate(3px, -3px); }
+.row .desc { margin-top: 9px; font-size: 14px; line-height: 1.55; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; list-style: none; }
+.tags li {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--teal);
+  background: var(--teal-dim);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.more-link {
+  display: inline-block;
+  margin-top: 26px;
+  font-size: 15.5px;
+  font-weight: 550;
+  color: var(--heading);
+  transition: color 0.2s;
+}
+.more-link .ext { display: inline-block; font-size: 12.5px; transition: transform 0.2s; }
+.more-link:hover { color: var(--teal); }
+.more-link:hover .ext { transform: translate(3px, -3px); }
+
+footer { padding-bottom: 80px; font-size: 13.5px; color: var(--faint); max-width: 56ch; }
+footer p + p { margin-top: 10px; }
+footer a { color: var(--body); font-weight: 500; }
+footer a:hover { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<div class="layout">
+
+  <header class="side">
+    <div>
+      <h1><a href="/">Rohan Balkondekar</a></h1>
+      <p class="role">Founder of Vibegrow &middot; AI Lead at Xsolla</p>
+      <p class="tagline">I build AI products and grow them in public.</p>
+      <nav class="in-page" aria-label="In-page navigation">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+      </nav>
+    </div>
+    <ul class="socials">
+      <li><a href="https://github.com/rohanbalkondekar" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li>
+      <li><a href="https://x.com/rohanbalkonde" target="_blank" rel="noreferrer" aria-label="X" title="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/in/rohanbalkondekar/" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 141.3z"/></svg></a></li>
+      <li><a href="https://www.instagram.com/rohanbalkondekar/" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a></li>
+    </ul>
+  </header>
+
+  <main>
+
+    <section id="about" class="prose">
+      <h3 class="label">About</h3>
+      <p>I&rsquo;m an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles. Over the past three years I&rsquo;ve shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.</p>
+      <p>I founded <a href="https://www.outsight.in" target="_blank" rel="noreferrer">OutSight AI</a>, an AI growth platform for small businesses, and exited it to Xsolla in an acqui-hire; I continue its product line as <a href="https://vibegrow.io" target="_blank" rel="noreferrer">Vibegrow</a>. Along the way I&rsquo;ve worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.</p>
+      <p>Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and you approve what ships. I use it on my own accounts first, this one included: I grow this audience with the product I&rsquo;m building.</p>
+    </section>
+
+    <section id="experience">
+      <h3 class="label">Experience</h3>
+      <ul class="xp">
+        <li>
+          <div class="row">
+            <div class="dates">2025 - Present</div>
+            <div>
+              <h4><a href="https://xsolla.com" target="_blank" rel="noreferrer">AI Lead &middot; Xsolla <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; direction for Shop Builder AI, Xsolla CLI, and MCP strategy; and AI-SDLC systems from code review to sandboxed background agents.</p>
+              <ul class="tags"><li>LLM agents</li><li>MCP</li><li>Python</li><li>TypeScript</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2025 - Present</div>
+            <div>
+              <h4><a href="https://vibegrow.io" target="_blank" rel="noreferrer">Founder &middot; OutSight AI / Vibegrow <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Founded OutSight AI, an AI growth platform for small businesses; exited to Xsolla via acqui-hire and continued the product line as Vibegrow. Shipped the platform, extension integrations, production auth and commerce flows, and the AI marketing workflows behind them.</p>
+              <ul class="tags"><li>AI agents</li><li>SaaS</li><li>Growth</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2024 - 2025</div>
+            <div>
+              <h4><a href="https://www.airarabia.com" target="_blank" rel="noreferrer">Generative AI Lead &middot; Air Arabia <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Led four generative-AI projects across customer support, development, internal operations, and engineering; built support automation covering 92K+ monthly FAQ interactions and owned LLM delivery from prototype to production.</p>
+              <ul class="tags"><li>RAG</li><li>AI agents</li><li>Azure</li><li>Python</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2023 - 2024</div>
+            <div>
+              <h4><a href="https://www.lyzr.ai" target="_blank" rel="noreferrer">SDE-2, Generative AI &middot; Lyzr AI <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Designed a conversational data-analytics agent SDK and a one-click fine-tuning pipeline covering 13 language and diffusion models.</p>
+              <ul class="tags"><li>SDK design</li><li>Fine-tuning</li><li>PyTorch</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2023 - 2024</div>
+            <div>
+              <h4><a href="https://scale.com" target="_blank" rel="noreferrer">Expert AI Trainer &middot; Scale AI <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Evaluated prompts, model outputs, reasoning traces, and code generation for ML workflows; advised startups, YC companies, and Fortune 500 teams on applied AI delivery.</p>
+              <ul class="tags"><li>Evals</li><li>AI consulting</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2023</div>
+            <div>
+              <h4><a href="https://iauro.com" target="_blank" rel="noreferrer">Software / ML Engineer &middot; Iauro Systems <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Fine-tuned and deployed generative models for banking, fintech, and HR-tech products; built Python, Rust, and JavaScript systems for LLM products and production ML tooling.</p>
+              <ul class="tags"><li>PyTorch</li><li>Rust</li><li>MLOps</li></ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <a class="more-link" href="/resume.pdf">View Full R&eacute;sum&eacute; <span class="ext">&#8599;</span></a>
+    </section>
+
+    <section id="projects">
+      <h3 class="label">Projects</h3>
+      <ul class="xp">
+        <li>
+          <div class="row">
+            <div class="dates">2025 - Present</div>
+            <div>
+              <h4><a href="https://vibegrow.io" target="_blank" rel="noreferrer">Vibegrow <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Instagram growth run by an agent: it drafts audits, reels, and outreach, and you approve what ships. I grow my own audience with it, starting with this site.</p>
+              <ul class="tags"><li>AI agents</li><li>Instagram</li><li>SaaS</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2023</div>
+            <div>
+              <h4><a href="https://github.com/rohanbalkondekar/Auto-HR" target="_blank" rel="noreferrer">Auto-HR <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">End-to-end recruitment automation: job descriptions, resume assessment, screening questions, and AI-conducted interviews.</p>
+              <ul class="tags"><li>Python</li><li>LLMs</li></ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="dates">2023</div>
+            <div>
+              <h4><a href="https://github.com/rohanbalkondekar/DataWiz" target="_blank" rel="noreferrer">DataWiz <span class="ext">&#8599;</span></a></h4>
+              <p class="desc">Talk to your data: ask natural-language questions over your own datasets.</p>
+              <ul class="tags"><li>Python</li><li>Analytics</li></ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <a class="more-link" href="https://github.com/rohanbalkondekar">More on GitHub <span class="ext">&#8599;</span></a>
+    </section>
+
+    <footer>
+      <p>Also on <a href="https://hf.co/rohanbalkondekar" target="_blank" rel="noreferrer">Hugging Face</a> and <a href="https://medium.com/@rohanbalkondekar" target="_blank" rel="noreferrer">Medium</a>. Reach me at <a href="mailto:rohan.balkondekar@gmail.com">rohan.balkondekar@gmail.com</a>.</p>
+      <p>Hand-built with plain HTML, CSS, and a few lines of JavaScript. Design inspired by <a href="https://brittanychiang.com" target="_blank" rel="noreferrer">Brittany Chiang</a>.</p>
+      <p>&copy; 2026 Rohan Balkondekar. Company names mark past engagements; trademarks belong to their owners.</p>
+    </footer>
+
+  </main>
+
+</div>
+
+
+<script>
+(function () {
+  var glow = document.querySelector(".cursor-glow");
+  if (matchMedia("(hover: hover)").matches) {
+    addEventListener("pointermove", function (e) {
+      glow.style.background = "radial-gradient(600px at " + e.clientX + "px " + e.clientY + "px, rgba(29, 78, 216, 0.12), transparent 80%)";
+    }, { passive: true });
+  }
+  var links = Array.prototype.slice.call(document.querySelectorAll(".in-page a"));
+  if ("IntersectionObserver" in window && links.length) {
+    var byId = {};
+    links.forEach(function (a) { byId[a.hash.slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove("active"); });
+          if (byId[entry.target.id]) byId[entry.target.id].classList.add("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    document.querySelectorAll("main section[id]").forEach(function (s) { spy.observe(s); });
+  }
+})();
+</script>
+
+</body>
 </html>
