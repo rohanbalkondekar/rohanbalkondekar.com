@@ -6,11 +6,11 @@ I build AI products and grow them in public.
 
 ## About
 
-I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles. I've been building with language models since GPT-2 in 2019, and over the past three years I've shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions at 99.9% resolution, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
+I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles. I've built with language models since GPT-2 in 2019 and shipped generative-AI systems end to end for the past three years: support automation covering 92,000+ monthly questions at 99.9% resolution, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
 
-I founded [OutSight AI](https://www.outsight.in), an AI growth platform for small businesses; Xsolla acqui-hired the founding team in 2025, and I continue its product line as [Vibegrow](https://vibegrow.io). Along the way I've worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.
+I founded [OutSight AI](https://www.outsight.in), an AI growth platform for small businesses; Xsolla acqui-hired the founding team in 2025, and I continue its product line as [Vibegrow](https://vibegrow.io). I've worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.
 
-Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and you approve what ships. I use it on my own accounts first, this one included: I grow this audience with the product I'm building.
+Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and you approve what ships. I use it on my own accounts first: I grow this audience with the product I'm building.
 
 ## Experience
 
