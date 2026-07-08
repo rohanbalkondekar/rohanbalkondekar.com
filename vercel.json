@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.rohanbalkondekar.com" }],
+      "destination": "https://rohanbalkondekar.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/llms-full.txt", "destination": "/index.md" }
   ]
