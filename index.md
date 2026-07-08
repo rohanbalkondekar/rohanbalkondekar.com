@@ -6,7 +6,7 @@ I build AI products and grow them in public.
 
 ## About
 
-I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles. Over the past three years I've shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
+I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles, where I wrote and won a USD 473K government AI grant. Over the past three years I've shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions at 99.9% resolution, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
 
 I founded [OutSight AI](https://www.outsight.in), an AI growth platform for small businesses; Xsolla acqui-hired the founding team in 2025, and I continue its product line as [Vibegrow](https://vibegrow.io). Along the way I've worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.
 
@@ -16,7 +16,7 @@ Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and yo
 
 ### AI Lead · Xsolla (2025 - Present)
 
-Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; direction for Shop Builder AI, Xsolla CLI, and MCP strategy; and AI-SDLC systems from code review to sandboxed background agents.
+Secured the MYR 2M (USD 473K) MDEC AI Grant from the Malaysian government. Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; Shop Builder AI, Xsolla CLI, and the MCP layer that cut partner integration from 30 days to 3; and AI-SDLC systems from code review to sandboxed background agents.
 
 ### Founder · OutSight AI / Vibegrow (2025 - Present)
 
@@ -24,7 +24,7 @@ Founded OutSight AI, an AI growth platform for small businesses; the founding te
 
 ### Generative AI Lead · Air Arabia (2024 - 2025)
 
-Led four generative-AI projects across customer support, development, internal operations, and engineering; built support automation covering 92K+ monthly FAQ interactions and owned LLM delivery from prototype to production.
+Led four generative-AI projects across customer support, development, internal operations, and engineering; built support automation covering 92K+ monthly interactions at 99.9% resolution (CSAT +20pp) and owned LLM delivery from prototype to production.
 
 ### SDE-2, Generative AI · Lyzr AI (2023 - 2024)
 
@@ -36,7 +36,7 @@ Evaluated prompts, model outputs, reasoning traces, and code generation for ML w
 
 ### Software / ML Engineer · Iauro Systems (2023)
 
-Fine-tuned and deployed generative models for banking, fintech, and HR-tech products; built Python, Rust, and JavaScript systems for LLM products and production ML tooling.
+Fine-tuned and deployed generative models for banking, fintech, and HR-tech clients, cutting delivery cost 80% and shipping 3.5× faster; built Python, Rust, and JavaScript systems for LLM products and production ML tooling.
 
 Full resume: https://rohanbalkondekar.com/resume.pdf
 
