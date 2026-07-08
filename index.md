@@ -6,7 +6,7 @@ I build AI products and grow them in public.
 
 ## About
 
-I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles, where I wrote and won a USD 473K government AI grant. Over the past three years I've shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions at 99.9% resolution, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
+I'm an AI engineer from Pune, now AI Lead at Xsolla between Kuala Lumpur and Los Angeles. Over the past three years I've shipped generative-AI systems end to end: customer-support automation covering 92,000+ monthly questions at 99.9% resolution, agent SDKs, fine-tuning pipelines, and a company-wide AI assistant.
 
 I founded [OutSight AI](https://www.outsight.in), an AI growth platform for small businesses; Xsolla acqui-hired the founding team in 2025, and I continue its product line as [Vibegrow](https://vibegrow.io). Along the way I've worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.
 
@@ -16,11 +16,11 @@ Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and yo
 
 ### AI Lead · Xsolla (2025 - Present)
 
-Secured the MYR 2M (USD 473K) MDEC AI Grant from the Malaysian government. Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; Shop Builder AI, Xsolla CLI, and the MCP layer that cut partner integration from 30 days to 3; and AI-SDLC systems from code review to sandboxed background agents.
+Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; direction for Shop Builder AI, Xsolla CLI, and MCP strategy; and AI-SDLC systems from code review to sandboxed background agents.
 
 ### Founder · OutSight AI / Vibegrow (2025 - Present)
 
-Founded OutSight AI, an AI growth platform for small businesses; the founding team was acqui-hired by Xsolla in 2025 and the product line continues as Vibegrow. Shipped the platform, extension integrations, production auth and commerce flows, and the AI marketing workflows behind them.
+Founded OutSight AI, an AI growth platform for small businesses; Xsolla acqui-hired the founding team in 2025 and I continue the product line as Vibegrow. Shipped the platform, extension integrations, production auth and commerce flows, and the AI marketing workflows behind them.
 
 ### Generative AI Lead · Air Arabia (2024 - 2025)
 
@@ -44,7 +44,7 @@ Full resume: https://rohanbalkondekar.com/resume.pdf
 
 - [Vibegrow](https://vibegrow.io) (2025 - Present): Instagram growth run by an agent: it drafts audits, reels, and outreach, and you approve what ships. I grow my own audience with it, starting with this site.
 - [Instagrow, Creator Toolkit](https://vibegrow.io) (2025 - Present): The Chrome-extension side of Vibegrow: creator workflow tools for Instagram drafts, downloads, DM exports, scheduling, and publishing.
-- [agent-loop-patterns](https://github.com/rohanbalkondekar/agent-loop-patterns) (2026): Agent loop patterns and a reusable queue-loop template for coding agents.
+- [agent-loop-patterns](https://github.com/rohanbalkondekar/agent-loop-patterns) (2026): A pattern catalog and reusable queue-loop template for coding agents.
 
 More on [GitHub](https://github.com/rohanbalkondekar).
 
