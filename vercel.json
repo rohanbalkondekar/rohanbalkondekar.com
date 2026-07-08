@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/llms-full.txt", "destination": "/index.md" }
+  ]
+}
