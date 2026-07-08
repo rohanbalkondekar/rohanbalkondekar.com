@@ -16,7 +16,7 @@ Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and yo
 
 ### AI Lead · Xsolla (2025 - Present)
 
-Leading AI strategy and productization across product, engineering, and enablement: Neuronet, the company-wide Slack AI assistant; direction for Shop Builder AI, Xsolla CLI, and MCP strategy; and AI-SDLC systems from code review to sandboxed background agents.
+Leading AI strategy and productization across product, engineering, and enablement: a company-wide AI assistant, Shop Builder AI, Xsolla CLI, MCP strategy, and AI-SDLC systems from code review to sandboxed background agents.
 
 ### Founder · OutSight AI / Vibegrow (2025 - Present)
 
