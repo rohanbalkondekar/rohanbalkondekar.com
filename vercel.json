@@ -13,6 +13,10 @@
       "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout"
     },
     {
+      "source": "/workout/assets/:path*",
+      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/assets/:path*"
+    },
+    {
       "source": "/workout/:path*",
       "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout/:path*"
     },
