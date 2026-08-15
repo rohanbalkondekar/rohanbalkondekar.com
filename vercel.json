@@ -8,6 +8,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/workout",
+      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout"
+    },
+    {
+      "source": "/workout/:path*",
+      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout/:path*"
+    },
     { "source": "/llms-full.txt", "destination": "/index.md" }
   ]
 }
