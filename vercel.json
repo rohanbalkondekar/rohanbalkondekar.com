@@ -22,15 +22,11 @@
   "rewrites": [
     {
       "source": "/workout",
-      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout"
+      "destination": "/workout/index.html"
     },
     {
-      "source": "/workout/assets/:path*",
-      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/assets/:path*"
-    },
-    {
-      "source": "/workout/:path*",
-      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout/:path*"
+      "source": "/workout/api/:path*",
+      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout/api/:path*"
     },
     { "source": "/llms-full.txt", "destination": "/index.md" }
   ]
