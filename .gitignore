@@ -1,2 +1,10 @@
 .vercel
 .env*
+node_modules/
+.next/
+public/
+next-env.d.ts
+*.tsbuildinfo
+!.env.example
+.agents/
+skills-lock.json

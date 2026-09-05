@@ -14,20 +14,27 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.rohanbalkondekar.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.rohanbalkondekar.com"
+        }
+      ],
       "destination": "https://rohanbalkondekar.com/$1",
       "permanent": true
     }
   ],
   "rewrites": [
     {
-      "source": "/workout",
-      "destination": "/workout/index.html"
+      "source": "/",
+      "destination": "/index.html"
     },
     {
-      "source": "/workout/api/:path*",
-      "destination": "https://rohan-workout-guide.outsightai.chatgpt.site/workout/api/:path*"
-    },
-    { "source": "/llms-full.txt", "destination": "/index.md" }
-  ]
+      "source": "/llms-full.txt",
+      "destination": "/index.md"
+    }
+  ],
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next"
 }
