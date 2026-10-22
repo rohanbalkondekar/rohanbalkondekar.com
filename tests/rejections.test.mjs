@@ -16,3 +16,11 @@ test('duplicate IDs and unknown outcomes fail rather than inflate counters', () 
   assert.throws(() => summarize({ ...data, entries: [...data.entries, ...data.entries] }));
   assert.throws(() => summarize({ ...data, entries: [{ id: 'unknown', status: 'no_response' }] }));
 });
+test('build renders useful content without JavaScript or a runtime data fetch', async () => {
+  await import('../scripts/render-rejections.mjs');
+  const html = await readFile(new URL('../rejections/index.html', import.meta.url), 'utf8');
+  assert.match(html, /0<\/strong> \/ 1,000 confirmed attempts/);
+  assert.match(html, /Apply to Y Combinator/);
+  assert.match(html, /In progress/);
+  assert.doesNotMatch(html, /<script|@font-face|rel="preload"/);
+});

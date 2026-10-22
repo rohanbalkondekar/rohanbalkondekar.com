@@ -1,3 +1,4 @@
+import "./render-rejections.mjs";
 import { cp, mkdir } from "node:fs/promises";
 await mkdir("public/workout", { recursive: true });
 await cp("rejections", "public/rejections", { recursive: true });
