@@ -1,0 +1,17 @@
+{
+  "challenge": {
+    "startDate": "2026-10-22",
+    "endDate": "2027-04-22",
+    "target": 1000
+  },
+  "entries": [
+    {
+      "id": "yc-application-001",
+      "title": "Apply to Y Combinator",
+      "category": "Startup",
+      "status": "in_progress",
+      "submittedDate": null,
+      "note": "The first opportunity on my list. Submission and application date are not yet confirmed."
+    }
+  ]
+}

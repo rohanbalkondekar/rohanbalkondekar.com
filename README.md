@@ -1,5 +1,11 @@
 # Personal website and workout tracker
 
+## Rejection project
+
+`/rejections` is a static public page. Edit `rejections/data.json` to maintain its log, then use the existing GitHub main → Vercel deployment. No write endpoint or account is needed. Each distinct ask has a stable unique ID. Keep private application materials and contact details out of this public file.
+
+Use `in_progress` until the ask/submission is confirmed; it does not count toward 1,000 attempts. Use `pending` only for a confirmed ask awaiting an answer, then `accepted` or `rejected` only for an actual decision. Silence is still pending. `submittedDate` is an ISO date when known, otherwise `null`; never substitute the challenge start date. The initial YC entry is unconfirmed. Counters derive from statuses, not dates or row numbers. Run `npm test` and `npm run build` before deploying updates.
+
 The homepage remains plain HTML. Next.js serves `/workout`, the mobile progress dashboard, and authenticated workout APIs. Vercel hosts the app; a dedicated Neon database stores account-owned workouts and paused sessions. Neon manages Google and email sign-in.
 
 Run `npm ci`, `npm run dev`, and open `/workout`. Production uses `npm run build`.
