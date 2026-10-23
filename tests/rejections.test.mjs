@@ -19,8 +19,10 @@ test('duplicate IDs and unknown outcomes fail rather than inflate counters', () 
 test('build renders useful content without JavaScript or a runtime data fetch', async () => {
   await import('../scripts/render-rejections.mjs');
   const html = await readFile(new URL('../rejections/index.html', import.meta.url), 'utf8');
-  assert.match(html, /0<\/strong> \/ 1,000 confirmed attempts/);
+  assert.match(html, /0<small> \/ 1,000<\/small>/);
   assert.match(html, /Apply to Y Combinator/);
   assert.match(html, /in progress/);
+  assert.match(html, /<details><summary>/);
+  assert.doesNotMatch(html, /<details open/);
   assert.doesNotMatch(html, /<script|@font-face|rel="preload"/);
 });

@@ -4,7 +4,7 @@ const data = JSON.parse(await readFile(new URL('../rejections/data.json', import
 const stats = summarize(data);
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const date = value => new Date(`${value}T00:00:00Z`).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
-const rows = data.entries.map((entry, index) => `<li class="entry"><span class="number">${index + 1}.</span><div><h2>${escape(entry.title)}</h2> <span class="status">(${labels[entry.status].toLowerCase()})</span><div class="meta">${escape(entry.category)} | ${entry.submittedDate ? `submitted ${escape(date(entry.submittedDate))}` : 'submission date unknown'}</div><p class="note">${escape(entry.note)}</p></div></li>`).join('\n');
+const rows = data.entries.map((entry, index) => `<li class="entry"><span class="number">${index + 1}.</span><details><summary><span class="entry-title">${escape(entry.title)}</span><span class="status">${entry.status === 'pending' ? 'Waiting' : labels[entry.status]}</span></summary><div class="detail"><p>${escape(entry.note)}</p><p class="meta">${entry.submittedDate ? `Submitted ${escape(date(entry.submittedDate))}` : 'Submission date unknown'}</p></div></details></li>`).join('\n');
 await writeFile(new URL('../rejections/index.html', import.meta.url), `<!doctype html>
 <html lang="en">
 <head>
@@ -19,16 +19,17 @@ await writeFile(new URL('../rejections/index.html', import.meta.url), `<!doctype
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="page">
-<header><a class="mark" href="/" aria-label="Rohan's website">R</a><h1>Rohan’s Rejections</h1><nav aria-label="Site"><a href="/">home</a> | <a href="/rejections/data.json">data</a></nav></header>
+<header><a class="mark" href="/" aria-label="Rohan's website">R</a><h1>Rejections</h1><a class="home" href="/">Rohan Balkondekar</a></header>
 <main id="main">
-<section class="summary" aria-label="Challenge progress">
-<p><strong>${stats.attempts.toLocaleString('en-US')}</strong> / ${data.challenge.target.toLocaleString('en-US')} confirmed attempts (${Number(stats.percent.toFixed(1))}%) <span class="counts">| ${stats.accepted} accepted | ${stats.rejected} rejected | ${stats.pending} pending | ${stats.in_progress} in progress</span></p>
-<p class="meta">${date(data.challenge.startDate)} – ${date(data.challenge.endDate)} · About six genuine asks a day. Success is taking action, not manufacturing rejection.</p>
+<section class="counts" aria-label="Outcomes">
+<div class="rejected"><strong>${stats.rejected}</strong><span>Rejected</span></div>
+<div><strong>${stats.accepted}</strong><span>Accepted</span></div>
+<div><strong>${stats.pending}</strong><span>Waiting</span></div>
+<div class="total"><strong>${stats.attempts}<small> / ${data.challenge.target.toLocaleString('en-US')}</small></strong><span>Total asks</span></div>
 </section>
+<div class="list-heading"><span>${date(data.challenge.startDate)} – ${date(data.challenge.endDate)}</span><span>${stats.in_progress} in progress</span></div>
 <ol aria-label="Asks and outcomes">${rows}</ol>
-<aside><p>In progress doesn’t count yet. Pending means submitted and awaiting a decision. Silence isn’t rejection.</p><p>The six-month goal is 1,000 attempts. I’m also tracking how long it takes to reach 1,000 actual rejections.</p></aside>
 </main>
-<footer><a href="/">Rohan Balkondekar</a> | <a href="/rejections/data.json">public log data</a></footer>
 </div>
 </body>
 </html>\n`);
