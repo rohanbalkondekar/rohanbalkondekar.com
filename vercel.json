@@ -26,10 +26,6 @@
   ],
   "rewrites": [
     {
-      "source": "/rejections",
-      "destination": "/rejections/index.html"
-    },
-    {
       "source": "/",
       "destination": "/index.html"
     },

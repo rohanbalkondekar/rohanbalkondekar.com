@@ -1,0 +1,13 @@
+import { neon } from '@neondatabase/serverless';
+import { summarize } from '../rejections/model.mjs';
+import { challenge, readEntries, upsertEntry, deleteEntry } from '../rejections/store.mjs';
+const usage = 'Usage: node --env-file=.env.production.local scripts/rejections.mjs list | upsert \'<entry json>\' [--expect-version N] | delete <id>';
+if (!process.env.DATABASE_URL) throw new Error(`DATABASE_URL is not set. ${usage}`);
+const [command, argument, ...flags] = process.argv.slice(2);
+const expected = flags.includes('--expect-version') ? Number(flags[flags.indexOf('--expect-version') + 1]) : null;
+const sql = neon(process.env.DATABASE_URL);
+if (command === 'upsert') console.log('Saved:', await upsertEntry(sql, JSON.parse(argument), expected));
+else if (command === 'delete') console.log((await deleteEntry(sql, argument)) ? `Deleted ${argument}` : `No entry ${argument}`);
+else if (command !== 'list') throw new Error(usage);
+const entries = await readEntries(sql);
+console.log(JSON.stringify({ summary: summarize({ challenge, entries }), entries }, null, 2));

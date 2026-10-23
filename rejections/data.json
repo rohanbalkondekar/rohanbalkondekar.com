@@ -12,6 +12,22 @@
       "status": "in_progress",
       "submittedDate": null,
       "note": "The first opportunity on my list. Submission and application date are not yet confirmed."
+    },
+    {
+      "id": "asked-someone-out-001",
+      "title": "Asked someone out",
+      "category": "Personal",
+      "status": "rejected",
+      "submittedDate": null,
+      "note": "A personal ask. They said no."
+    },
+    {
+      "id": "employer-china-trip-001",
+      "title": "Ask my employer to sponsor a trip to China",
+      "category": "Work",
+      "status": "in_progress",
+      "submittedDate": null,
+      "note": "Not asked yet. Still working out how to make a formal proposal."
     }
   ]
 }

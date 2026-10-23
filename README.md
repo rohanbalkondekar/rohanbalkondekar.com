@@ -2,9 +2,26 @@
 
 ## Rejection project
 
-`/rejections` is a static public page. Edit `rejections/data.json` to maintain its log, then use the existing GitHub main → Vercel deployment. No write endpoint or account is needed. Each distinct ask has a stable unique ID. Keep private application materials and contact details out of this public file.
+`/rejections` is a public, read-only page rendered on each request from the `rejection_entries` table in the existing Neon database. No browser JavaScript, no redeploy for data changes. If the database is unreachable the page serves the committed snapshot in `rejections/index.html` and says so; it never shows fabricated zeroes. `rejections/data.json` is the seed used only when the table is first created, plus the challenge dates and target.
 
-Use `in_progress` until the ask/submission is confirmed; it does not count toward 1,000 attempts. Use `pending` only for a confirmed ask awaiting an answer, then `accepted` or `rejected` only for an actual decision. Silence is still pending. `submittedDate` is an ISO date when known, otherwise `null`; never substitute the challenge start date. The initial YC entry is unconfirmed. Counters derive from statuses, not dates or row numbers. The build renders the complete page from the data file; it needs no browser JavaScript, font downloads, or runtime data fetch. Run `node scripts/prepare-static.mjs` after local data edits. Run `npm test` and `npm run build` before deploying updates.
+Statuses: `in_progress` until the ask is actually made (not counted); `pending` for a confirmed ask with no answer yet (silence stays pending); `accepted` or `rejected` only for an actual decision. `submittedDate` is `YYYY-MM-DD` when known, else `null`; an `in_progress` entry must have `null`. Each entry has a stable lowercase slug `id`. Keep private details out of titles and notes. Counts derive from statuses only.
+
+### Updating entries (owner only)
+
+Public: `GET /rejections/api/entries` returns the challenge, counts and entries. Writes need `Authorization: Bearer $REJECTIONS_WRITE_TOKEN`, a random secret (at least 32 characters) set only in the Vercel project's environment; any missing, short or wrong token gets 401, and the HTML page returns 405 for every write method.
+
+```sh
+# add or update (upsert by id); optional expectedVersion returns 409 if someone else changed it first
+curl -X POST https://rohanbalkondekar.com/rejections/api/entries \
+  -H "Authorization: Bearer $REJECTIONS_WRITE_TOKEN" -H "Content-Type: application/json" \
+  -d '{"entry":{"id":"example-001","title":"Ask X for Y","category":"Work","status":"pending","submittedDate":"2026-10-24","note":"Short public note."}}'
+# remove
+curl -X DELETE "https://rohanbalkondekar.com/rejections/api/entries?id=example-001" -H "Authorization: Bearer $REJECTIONS_WRITE_TOKEN"
+```
+
+Every write response echoes the saved entry plus the fresh counts, so an agent can confirm the result. The same writes work locally with the database credential instead of the token: `node --env-file=.env.production.local scripts/rejections.mjs list | upsert '<entry json>' [--expect-version N] | delete <id>`. Never put the token or database URL in source, browser assets, URLs or chat logs.
+
+Run `npm test` (set `DATABASE_URL` to also run the store round-trip) and `npm run build` before deploying code changes.
 
 The homepage remains plain HTML. Next.js serves `/workout`, the mobile progress dashboard, and authenticated workout APIs. Vercel hosts the app; a dedicated Neon database stores account-owned workouts and paused sessions. Neon manages Google and email sign-in.
 
@@ -15,17 +32,3 @@ Configure `DATABASE_URL`, `NEON_AUTH_BASE_URL`, and a randomly generated `NEON_A
 `npm test` checks legacy browser migration, account separation, offline retry, and backup verification. The app keeps the original browser database intact when importing records into the first signed-in account. Completed sessions are immutable and deduplicated by account and session ID. Paused sessions use the latest update timestamp; avoid editing the same workout on two devices simultaneously.
 
 Open the deployed tracker and sign in on each device with existing records to upload them. Backup status only confirms success after reading the saved records back from the server.
-
-### Live updates: proposed next step, not implemented
-
-The current UI is an approval preview using the verified JSON seed. It does not yet update from a database.
-
-Existing infrastructure: Next.js on Vercel; `lib/db.ts` uses Neon Postgres via the server-only `DATABASE_URL`; `lib/auth.ts` uses Neon Auth. The workout API owns separate tables and must stay unchanged.
-
-Smallest live-data version: add a `rejection_entries` table containing only the public fields already in the JSON, plus a version and update timestamp. Serve an explicit field allowlist from a read-only, uncached GET route. The page fetches that route on load and periodically while visible, recalculating counts and preserving open details. On failure, retain the last successful data and mark it stale rather than showing fabricated zeroes. A DB edit appears on the next fetch, without a deployment.
-
-For the first version, keep all writes out of the public application. Rohan can edit through the existing database console; the authorized agent can use existing database tooling or a local validation/upsert command with the existing server credential supplied privately. Do not put credentials in source, browser assets or URLs. No public POST/PATCH/DELETE handlers or new tokens are needed. Before implementing this route, verify the existing database identity/access without printing secrets. Do not create new roles, grants, accounts or paid services. If existing access is unavailable, leave this proposal pending rather than introducing a new service.
-
-If an owner edit screen is later required, reuse Neon Auth with a verified owner user-ID allowlist checked server-side; an arbitrary signed-in account is insufficient. That is separate from this initial read-only public route.
-
-Required live-data checks before launch: anonymous reads return public fields only; anonymous mutations return 405; a validated authorized DB edit becomes visible without redeploying; preparation stays excluded from waiting/total; errors keep the last valid snapshot; version checks prevent overwriting concurrent edits. None of these database checks have been run yet, because no live-data backend has been implemented or changed.
