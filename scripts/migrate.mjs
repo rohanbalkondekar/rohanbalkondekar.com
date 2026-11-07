@@ -1,8 +1,10 @@
 import { neon } from "@neondatabase/serverless";
 import { ensureSchema } from "../rejections/store.mjs";
+import { ensureSchema as ensureLiveLog } from "../live-log/store.mjs";
 const sql = neon(process.env.DATABASE_URL);
 await sql`CREATE TABLE IF NOT EXISTS workout_sessions (owner text NOT NULL, id text NOT NULL, ended_at timestamptz NOT NULL, payload jsonb NOT NULL, PRIMARY KEY (owner, id))`;
 await sql`CREATE INDEX IF NOT EXISTS workout_sessions_owner_ended ON workout_sessions (owner, ended_at DESC)`;
 await sql`CREATE TABLE IF NOT EXISTS workout_drafts (owner text PRIMARY KEY, updated_at timestamptz NOT NULL, payload jsonb NOT NULL)`;
 await ensureSchema(sql);
-console.log("Workout and rejections database schema ready.");
+await ensureLiveLog(sql);
+console.log("Workout, rejections and live-log database schema ready.");

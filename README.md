@@ -1,5 +1,13 @@
 # Personal website and workout tracker
 
+## Writing
+
+`/blog` is built from Markdown files in `blog/posts/`. The file name is the URL slug, and each file starts with frontmatter: `title`, `date: YYYY-MM-DD`, an optional `description`, and an optional `draft: true`. Drafts show in `npm run dev` but are left out of production builds. Publishing a post means committing the file and deploying. `/blogs/*` redirects to `/blog/*`.
+
+Medium posts are copied in with `node scripts/import-medium.mjs`. With no argument it reads the Medium RSS feed, which only carries the 10 most recent posts. For everything, download the export (Medium → Settings → Security and apps → Download your information), unzip it, and run `node scripts/import-medium.mjs ~/Downloads/medium-export`. Drafts and short responses are skipped, and existing files are kept unless you pass `--force`. Imported posts set `canonical:` to the Medium URL, so search engines treat Medium as the original, and they show an "Originally published on Medium" link.
+
+`/live-log` is a journal stored in the `live_log_entries` table and rendered on each request. To write, click the faint ✎ at the bottom right of the page and paste `LIVE_LOG_WRITE_TOKEN` (32+ characters, set in Vercel and `.env.local`). The page saves it in that browser's localStorage and shows the composer. ⌘↵ posts. If the newest entry is less than an hour old, the new thought is appended to it, so timestamps are always at least an hour apart. Double-click an entry to edit it, and save an empty entry to delete it. The same writes are available at `POST /live-log/api {"body"}` and `PATCH /live-log/api {"id","body"}` with `Authorization: Bearer $LIVE_LOG_WRITE_TOKEN`.
+
 ## Rejection project
 
 `/rejections` is a public, read-only page rendered on each request from the `rejection_entries` table in the existing Neon database. No browser JavaScript, no redeploy for data changes. If the database is unreachable the page serves the committed snapshot in `rejections/index.html` and says so; it never shows fabricated zeroes. `rejections/data.json` is the seed used only when the table is first created, plus the challenge dates and target.
