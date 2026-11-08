@@ -67,7 +67,7 @@ for (const post of posts) {
   const file = path.join('blog', 'posts', `${slugOf(post.url)}.md`);
   if (existsSync(file) && !force) { console.log(`exists ${file} (use --force to overwrite)`); continue; }
   const description = oneLine(post.description).slice(0, 200);
-  await writeFile(file, `---\ntitle: ${oneLine(post.title)}\ndate: ${post.date}\ndescription: ${description}\ncanonical: ${post.url}\n---\n\n${dropTitle(turndown.turndown(post.html).trim(), post.title)}\n`);
+  await writeFile(file, `---\ntitle: ${oneLine(post.title)}\ndate: ${post.date}\ndescription: ${description}\nsource: ${post.url}\n---\n\n${dropTitle(turndown.turndown(post.html).trim(), post.title)}\n`);
   console.log(`wrote ${file}`); written++;
 }
 console.log(`${written} of ${posts.length} posts written.`);

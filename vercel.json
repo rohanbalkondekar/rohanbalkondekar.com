@@ -24,12 +24,6 @@
       "permanent": true
     }
   ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    }
-  ],
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next"

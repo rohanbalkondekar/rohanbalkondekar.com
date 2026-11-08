@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parsePost, renderPost } from '../blog/posts.mjs';
-import { renderPage } from '../live-log/render.mjs';
-import { cleanBody } from '../live-log/store.mjs';
+import { renderPage, logMarkdown } from '../live-log/render.mjs';
+import { cleanBody, cleanWhere, whereFrom } from '../live-log/store.mjs';
 test('blog frontmatter is required and parsed', () => {
   const post = parsePost('a', '---\ntitle: "Hi: there"\ndate: 2026-11-07\ndraft: true\n---\nBody **bold**');
   assert.deepEqual([post.title, post.date, post.draft], ['Hi: there', '2026-11-07', true]);
@@ -15,6 +15,22 @@ test('imported posts stay canonical here and credit the original', () => {
   assert.match(html, /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/blog\/m">/);
   assert.match(html, /<a href="https:\/\/medium\.com\/@rohanbalkondekar\/m-8d8794266315">Originally published on Medium<\/a>/);
   assert.equal(parsePost('x', '---\ntitle: X\ndate: 2024-01-01\nsource: javascript:alert(1)\n---\n').source, undefined);
+});
+test('live log shows each entry in the time zone and place it was written', () => {
+  const entry = { id: '3', createdAt: '2026-11-08T09:00:00Z', updatedAt: '2026-11-08T10:30:00Z', body: 'x', timeZone: 'Asia/Kuala_Lumpur', place: 'Kuala Lumpur', editedTimeZone: 'Asia/Taipei', editedPlace: 'Taipei' };
+  const html = renderPage([entry]);
+  assert.match(html, />17:00<\/a><\/time>/);
+  assert.match(html, /<p class="where">Kuala Lumpur · edited 18:30, Taipei<\/p>/);
+  assert.match(logMarkdown([entry]), /## Sunday, 8 November 2026, 17:00 \(Kuala Lumpur, GMT\+8\)/);
+  assert.deepEqual(cleanWhere({ timeZone: 'Not/AZone', place: '<b>' }), { timeZone: null, place: 'b' });
+  assert.deepEqual(cleanWhere({ timeZone: 'Asia/Taipei', place: ' Taipei ' }), { timeZone: 'Asia/Taipei', place: 'Taipei' });
+});
+test('live log place: IP city only when it is in the device time zone, aliases included', () => {
+  const headers = values => name => values[name] ?? '';
+  assert.deepEqual(whereFrom(headers({ 'x-vercel-ip-timezone': 'Asia/Kolkata', 'x-vercel-ip-city': 'Pune' }), 'Asia/Calcutta'), { timeZone: 'Asia/Calcutta', place: 'Pune' });
+  assert.deepEqual(whereFrom(headers({ 'x-vercel-ip-timezone': 'Europe/Berlin', 'x-vercel-ip-city': 'Frankfurt' }), 'Asia/Kuala_Lumpur'), { timeZone: 'Asia/Kuala_Lumpur', place: 'Kuala Lumpur' }); // VPN
+  assert.equal(whereFrom(headers({}), 'Bogus/Zone').place, undefined);
+  assert.match(renderPage([{ id: '9', createdAt: '2026-11-08T09:00:00Z', updatedAt: '2026-11-08T09:00:00Z', body: 'x', timeZone: 'Not/AZone' }]), /14:30/); // bad stored zone falls back to IST
 });
 test('live log groups by IST day and escapes raw HTML', () => {
   const html = renderPage([

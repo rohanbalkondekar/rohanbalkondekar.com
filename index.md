@@ -1,5 +1,7 @@
 # Rohan Balkondekar
 
+> Site index: https://rohanbalkondekar.com/llms.txt
+
 Founder of Vibegrow · AI Lead at Xsolla
 
 I build AI products and grow them in public.

@@ -4,5 +4,5 @@ await mkdir("public/workout", { recursive: true });
 await rm("public/rejections", { recursive: true, force: true });
 await mkdir("public/rejections", { recursive: true });
 await cp("rejections/style.css", "public/rejections/style.css");
-for (const file of ["index.html", "index.md", "favicon-96.png", "icon-rb-96.png", "apple-touch-icon.png", "favicon.svg", "fonts", "img", "llms.txt", "og.png", "resume.pdf", "robots.txt"]) await cp(file, `public/${file}`, { recursive: true });
+for (const file of ["index.html", "index.md", "favicon-96.png", "favicon-192.png", "favicon.ico", "apple-touch-icon.png", "fonts", "img", "llms.txt", "og.png", "resume.pdf", "robots.txt", "indexnow-key.txt", ".well-known"]) await cp(file, `public/${file}`, { recursive: true });
 for (const file of ["gym", "exercises", "icon.svg", "icon-rg-96.png", "apple-touch-icon.png"]) await cp(`workout/${file}`, `public/workout/${file}`, { recursive: true });
