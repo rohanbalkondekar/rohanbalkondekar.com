@@ -1,0 +1,588 @@
+/* Adapted from Perfect Edition by Robin Sloan (MIT License, see blog/book/LICENSE): https://github.com/robinsloan/perfect-edition */
+@charset "UTF-8";
+
+@font-face {
+  font-family: "Vollkorn";
+  font-weight: 400;
+  font-style: normal;
+  src: url("/fonts/vollkorn/Vollkorn-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vollkorn";
+  font-weight: 400;
+  font-style: italic;
+  src: url("/fonts/vollkorn/Vollkorn-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vollkorn";
+  font-weight: 500;
+  font-style: normal;
+  src: url("/fonts/vollkorn/Vollkorn-Semibold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vollkorn";
+  font-weight: 500;
+  font-style: italic;
+  src: url("/fonts/vollkorn/Vollkorn-SemiboldItalic.woff2") format("woff2");
+}
+
+*, *:before, *:after {
+  text-rendering: optimizelegibility;
+  box-sizing: border-box;
+}
+
+:root {
+  --base-unit: 5vh;
+  --column-width: 50vw;
+}
+
+@supports (width: clamp(28px, 5vh, 48px)) {
+  :root {
+    --base-unit: clamp(28px, 5vh, 48px);
+    --column-width: clamp(480px, 50vw, 640px);
+  }
+}
+
+:root {
+  --base-unit-half: calc( var(--base-unit) / 2.0 );
+  --body-text-font-stack: "Vollkorn", serif;
+  --heading-text-font-stack: "Vollkorn", serif;
+  --font-size: var(--base-unit-half);
+  --line-height: 1.4rem;
+  --print-line-height: 1.4rem;
+  --vertical-padding: var(--base-unit);
+  --column-height: calc(100vh - calc(var(--vertical-padding) * 4.0));
+  --column-height: calc(100svh - calc(var(--vertical-padding) * 4.0));
+  --column-gap: var(--base-unit);
+  --paper-hue: 100;
+  --paper-saturation: 50%;
+  --paper-lightness: 99%;
+  --paper-color: hsla( var(--paper-hue), var(--paper-saturation), var(--paper-lightness), 1.0 );
+  --shade-color-destination: hsla(var(--paper-hue), var(--paper-saturation), var(--paper-lightness), 0.0);
+  --shade-color-origin: hsla(var(--paper-hue), var(--paper-saturation), var(--paper-lightness), 0.75);
+  --spot-color: hsla(340, 100%, 50%, 1.0);
+  --selection-color: hsla(340, 100%, 75%, 1.0);
+  --text-color: rgb(5, 5, 5);
+}
+
+::-moz-selection { background: var(--selection-color); }
+::selection { background: var(--selection-color); }
+
+/* <button> has some gross defaults */
+button {
+  touch-action: manipulation;
+  background: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow: hidden; /* This is the key, always */
+  font-size: var(--font-size);
+  font-feature-settings: "kern", "liga", "ss11"; /* ss11 gives us the more normal 1 digit in Vollkorn */
+}
+
+body {
+  height: 100vh; /* So the scrollbar appears at the bottom */
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0;
+  padding: var(--vertical-padding) 0 0 0;
+  background-color: var(--paper-color);
+  font-family: var(--body-text-font-stack);
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left; /* sigh */
+  line-height: var(--line-height);
+  color: var(--text-color);
+}
+
+div.book div.tutorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--line-height);
+  break-after: column;
+  width: var(--column-width);
+  height: calc(var(--column-height) - 1px);
+  overflow: hidden;  /* hacky, prevents weird flow problems */
+  text-align: center;
+}
+
+div.book div.tutorial h2 {
+  flex-grow: 0;
+  height: auto;
+  margin: 0;
+  font-family: var(--body-text-font-stack); /* a bit ugly */
+}
+
+div.book div.tutorial p {
+  flex-grow: 0;
+  margin: 0;
+  text-indent: 0;
+}
+
+button.toc-button {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  left: 50vw;
+  cursor: pointer;
+  width: calc( var(--base-unit) * 2.0 );
+  height: var(--base-unit);
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--paper-color);
+  border: 1px solid var(--text-color);
+  color: inherit;
+  z-index: 100000;
+}
+
+button.toc-button:hover {
+  border: 1px solid var(--spot-color);
+  color: var(--spot-color);
+}
+
+button.toc-button svg {
+  flex-grow: 1;
+  fill: currentColor;
+}
+
+nav {
+  position: fixed;
+  top: calc( var(--vertical-padding) + var(--base-unit) );
+  left: calc( 50vw - var(--column-width) * 0.45);
+  width: calc( var(--column-width) * 0.9 ); /* This is all a little bit stupid and I'm sure there's a more principled way to do it */
+  height: calc( var(--column-height) - var(--base-unit) );
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: hsla(var(--paper-hue), calc(var(--paper-saturation) * 2.0), var(--paper-lightness), 1.0);
+  border: 1px solid var(--spot-color);
+  box-shadow: 0 0 var(--base-unit-half) 1px var(--spot-color);
+  transition: opacity 0.1s;
+  text-align: left;
+  z-index: 10000;
+}
+
+nav.visible {
+  pointer-events: auto;
+  opacity: 1.0;
+}
+
+nav.invisible {
+  pointer-events: none;
+  opacity: 0.0;
+}
+
+nav div.toc {
+  position: relative;
+  width: calc( var(--column-width) * 0.9 );
+  height: calc( var(--column-height) - var(--base-unit) * 2.0 );
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: var(--base-unit);
+}
+
+nav div.close-button {
+  position: fixed;
+  top: calc( var(--vertical-padding) + var(--base-unit) + var(--base-unit));
+  right: calc( 50vw + var(--base-unit) - var(--column-width) * 0.45);
+  width: var(--base-unit-half);
+  height: var(--base-unit-half);
+  stroke: var(--spot-color);
+  stroke-width: 1px;
+}
+
+nav div.close-button:hover {
+  cursor: pointer;
+}
+
+nav div.controls {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  top: calc( var(--vertical-padding) + var(--column-height) - var(--base-unit) * 2.0 ); /* this is getting a bit silly... */
+  left: calc( 50vw - var(--column-width) * 0.45);
+  width: calc( var(--column-width) * 0.9 );
+  height: calc( var(--base-unit) * 2.0 );
+  background-color: hsla(var(--paper-hue), calc(var(--paper-saturation) * 2.0), var(--paper-lightness), 1.0);
+  border: 1px solid var(--spot-color);
+  z-index: 100000;
+}
+
+nav div.controls button {
+  flex-shrink: 0;
+  cursor: pointer;
+  width: var(--base-unit);
+  height: auto;
+  margin: 0 var(--base-unit-half) 0 0;
+  padding: 0;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: var(--spot-color);
+}
+
+nav div.controls button:last-child {
+  margin: 0 0 0 0;
+}
+
+nav div.controls button:hover {
+  color: var(--text-color);
+}
+
+nav h1 {
+  width: calc( var(--column-width) * 0.9 - calc( var(--base-unit) * 2.0 ) );
+  margin: 0 0 var(--line-height) 0;
+  padding: 0;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: var(--line-height);
+}
+
+nav ol {
+  width: 90%;
+  margin: 0 0 var(--line-height) 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav ol li {
+  margin: 0 0 var(--line-height) 0;
+  font-size: 1rem;
+  line-height: var(--line-height);
+}
+
+nav ol li:last-of-type {
+  margin: 0 0 0 0;
+}
+
+div.bookmark {
+  position: absolute;
+  display: none;
+  top: calc( var(--vertical-padding) * -2.5 ); /* now THAT is a magic number */
+  left: calc( var(--column-width) / 2.0 );
+  width: var(--base-unit);
+  height: calc( var(--base-unit) * 2.0 );
+  transform: translateX(-50%);
+  fill: var(--spot-color);
+  z-index: 100000;
+}
+
+/* GENERAL STYLES */
+
+h2 {
+  margin: calc( var(--line-height) * 6.0 ) 0 calc( var(--line-height) * 2.0 ) 0;
+  padding: 0;
+  break-before: column;
+  font-family: var(--heading-text-font-stack);
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: calc( var(--line-height) * 2.0 );
+}
+
+a, a:link, a:visited {
+  color: var(--spot-color);
+}
+
+a:hover, a:active {
+  color: var(--text-color);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  text-indent: var(--base-unit-half);
+}
+
+span.nobr {
+  white-space: nowrap;
+}
+
+p.spacetime {
+  margin-top: var(--line-height);
+  text-indent: 0;
+}
+
+small {
+  font-size: 1.025rem;
+  font-feature-settings: "kern", "liga", "ss11", "smcp";
+  font-variant: small-caps;
+  font-variant-caps: small-caps;
+  hyphens: none;
+  text-transform: lowercase;
+}
+
+img {
+  display: block;
+  break-before: column;
+  break-after: column;
+  width: var(--column-width);
+  height: var(--column-height);
+  max-height: var(--column-height);
+  overflow: hidden;
+  mix-blend-mode: multiply;
+  object-fit: contain;
+}
+
+hr {
+  break-after: avoid-column;
+  width: 50%;
+  margin: var(--base-unit) auto var(--base-unit) auto;
+  border: none;
+  border-bottom: 1px solid var(--spot-color);
+}
+
+p.last-page {
+  break-before: column;
+}
+
+p.last-page::after {
+  display: block;
+  height: var(--column-height);
+  content: "";
+}
+
+blockquote {
+  break-before: avoid-column;
+  margin: 0;
+  padding: var(--base-unit);
+  background-color: rgba(0, 0, 0, 0.125);
+  font-style: italic;
+}
+
+/* BOOK BLOCK LAYOUT */
+
+div.book {
+  position: relative;
+  column-gap: var(--base-unit);
+  column-fill: auto;
+  column-count: auto;
+  column-width: var(--column-width);
+  width: var(--column-width);
+  height: var(--column-height);
+  margin: var(--base-unit-half);
+}
+
+div.book div.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--line-height);
+  width: var(--column-width);
+  height: var(--column-height);
+  overflow: hidden; /* hacky, prevents weird flow problems */
+  text-align: center;
+}
+
+div.book div.title h1 {
+  flex-grow: 0;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  font-family: var(--heading-text-font-stack);
+  font-size: 2rem;
+  font-weight: 500;
+  font-feature-settings: "kern", "liga", "smcp", "ss11";
+  font-variant: small-caps;
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  line-height: calc( var(--line-height) * 2.0 );
+  color: var(--text-color);
+}
+
+div.book div.title h1 span {
+  display: block;
+}
+
+div.book div.title h2 {
+  flex-grow: 0;
+  margin: 0;
+}
+
+div.book h1 {
+  break-before: column;
+  overflow: hidden; /* hacky */
+  margin: 0;
+  padding: 0;
+  font-family: var(--heading-text-font-stack);
+  font-size: 2rem;
+  font-weight: 500;
+  font-feature-settings: "kern", "liga", "smcp", "ss11";
+  font-variant: small-caps;
+  font-variant-caps: small-caps;
+  text-align: center;
+  text-transform: lowercase;
+  line-height: var(--column-height);
+  color: var(--spot-color);
+}
+
+div.book::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc( ( 100vw - var(--column-width) - var(--base-unit) ) / 2.0 );
+  height: 100vh;
+  background: linear-gradient(to right, var(--shade-color-origin) 0%, var(--shade-color-origin) 95%, var(--shade-color-destination) 100%);
+  content: "";
+  z-index: 1000;
+}
+
+div.book::after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc( ( 100vw - var(--column-width) - var(--base-unit) ) / 2.0 );
+  height: 100vh;
+  background: linear-gradient(to left, var(--shade-color-origin) 0%, var(--shade-color-origin) 95%, var(--shade-color-destination) 100%);
+  content: "";
+  z-index: 1000;
+}
+
+/* PRINT STYLES */
+/* This is a mess... */
+
+div.print-cover {
+  display: none;
+  page-break-after: always;
+  width: 100%;
+  height: 100%;
+}
+
+div.print-cover div.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+div.print-cover div.title h1 {
+  flex-grow: 0;
+  margin: 0;
+  padding: 0;
+  font-family: var(--heading-text-font-stack);
+  font-size: 2rem;
+  font-weight: 500;
+  font-feature-settings: "kern", "liga", "smcp", "ss11";
+  font-variant:small-caps;
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  line-height: calc( var(--line-height) * 2.0 );
+}
+
+div.print-cover div.title h1 span {
+  display: block;
+}
+
+div.print-cover div.title h2 {
+  flex-grow: 0;
+  margin-top: var(--line-height);
+}
+
+/* RESPONSIVE STUFF */
+
+@media screen and (max-width: 640px) {
+  :root {
+    --column-width: calc(100vw - var(--base-unit));
+  }
+
+  div.book::before, div.book::after {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  div.book {
+    margin-left: calc(50vw - var(--column-width) / 2.0);
+  }
+}
+
+@media screen and (min-height: 1000px) {
+  :root {
+    --vertical-padding: calc( var(--base-unit) * 2.0 );
+  }
+
+  div.bookmark {
+    top: calc( var(--vertical-padding) * -1.5 ); /* Now THAT is a stupid magic number */
+  }
+}
+
+@media print {
+  html {
+    width: 100%;
+    overflow: auto;
+    overflow: visible !important; /* BLERF this fixed a lot of my print style woes */
+    font-size: 16pt;
+  }
+
+  div.book::before, div.book::after, nav, button.toc-button, img.cover, div.last-page, div.bookmark, div.tutorial {
+    display: none;
+  }
+
+  div.book div.title {
+    display: none;
+  }
+
+  @page {
+    margin: 1.5in;
+  }
+
+  body {
+    width: 100%;
+    height: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-color: rgb(255, 255, 255);
+    line-height: var(--print-line-height);
+    color: rgb(0, 0, 0);
+  }
+
+  div.print-cover {
+    display: block;
+  }
+
+  div.book {
+    columns: 100% 1;
+    column-gap: 0;
+    column-fill: auto;
+    column-count: 0;
+    column-width: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  h2 {
+    position: relative;
+    display: block;
+    break-before: page !important; /* This isn't working :( */
+    margin-top: 0;
+    margin-bottom: var(--print-line-height);
+    font-size: 1rem;
+    line-height: var(--print-line-height);
+  }
+
+  hr {
+    break-after: avoid-page !important;
+  }
+
+  small {
+    font-size: 1.0rem;
+    font-weight: 400;
+    font-variant: none;
+    font-variant-caps: none;
+    text-transform: none; /* Small caps weren't working correctly when actually printed, so! */
+  }
+}
