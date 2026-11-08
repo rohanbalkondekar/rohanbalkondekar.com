@@ -25,9 +25,11 @@ export function renderPage(entries, { stale = false } = {}) {
     days.at(-1).entries.push(entry);
   }
   const log = days.map(group => `<section class="day"><h2>${group.label}</h2>\n${group.entries.map(entry => `<div class="entry" id="t${entry.id}" data-id="${entry.id}" data-body="${escape(entry.body)}"><time datetime="${entry.createdAt}"><a href="#t${entry.id}">${time(entry.createdAt)}</a></time><div class="text">${markdown.parse(entry.body)}</div></div>`).join('\n')}</section>`).join('\n');
-  return paper({ title: 'Live log | Rohan Balkondekar', description: 'A living journal of thoughts as they happen.', path: '/live-log', extraCss: css, script,
+  return paper({ title: 'Live log | Rohan Balkondekar', description: 'A living journal of thoughts as they happen.', path: '/live-log', markdown: '/live-log.md', extraCss: css, script,
     body: `<main><h1>Live log</h1><p class="intro">Thoughts as they happen, unedited. Times in IST.${stale ? ' Live data is unavailable right now.' : ''}</p>
 <div id="composer"><textarea id="thought" placeholder="What's on your mind?" aria-label="New thought"></textarea><div class="hint"><span id="hint">Within an hour of the last entry, it joins that entry. Double-click any entry to edit; ⌘↵ saves, Esc cancels, empty deletes.</span><button id="post">Post ⌘↵</button></div></div>
 ${log || '<p class="empty">Nothing yet.</p>'}</main>
 <footer><input id="key" type="password" placeholder="Owner key, then Enter" aria-label="Owner key"> <button id="write" aria-label="Owner mode">✎</button></footer>` });
 }
+// Markdown version for agents: newest first, IST timestamps.
+export const logMarkdown = entries => `# Live log\n\nThoughts by Rohan Balkondekar as they happen, unedited. Times in IST (Asia/Kolkata). Newest first.\n\n${entries.map(entry => `## ${day(entry.createdAt)}, ${time(entry.createdAt)}\n\n${entry.body.trim()}`).join('\n\n') || 'Nothing yet.'}\n`;

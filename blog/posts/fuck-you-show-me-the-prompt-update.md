@@ -2,7 +2,7 @@
 title: Fuck You, Show Me The Prompt [UPDATE]
 date: 2025-02-09
 description: If you clicked, there’s high chance that you have already read Fuck You, Show Me The Prompt by Hamel
-canonical: https://medium.com/@rohanbalkondekar/fuck-you-show-me-the-prompt-update-454edb03aec0
+source: https://medium.com/@rohanbalkondekar/fuck-you-show-me-the-prompt-update-454edb03aec0
 ---
 
 ![Intercepting LLM API calls](https://cdn-images-1.medium.com/max/508/1*6-7XuhB2mGBVuVjhnwYJFg.png)

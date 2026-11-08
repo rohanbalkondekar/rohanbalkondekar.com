@@ -2,7 +2,7 @@
 title: How Far Are We From Automating Software Engineering?
 date: 2024-03-13
 description: Big Claims Huh?
-canonical: https://medium.com/@rohanbalkondekar/how-far-are-we-from-automating-software-engineering-3d48d0292246
+source: https://medium.com/@rohanbalkondekar/how-far-are-we-from-automating-software-engineering-3d48d0292246
 ---
 
 ![this-is-how-exponential-growth-looks-like](https://cdn-images-1.medium.com/max/1024/1*kMoX_KhLVNY_Z3jwvQzrjA.png)

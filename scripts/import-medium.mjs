@@ -22,7 +22,9 @@ turndown.addRule('embed', { filter: 'iframe', replacement: (_content, node) => {
   const href = original ? decodeURIComponent(original) : node.querySelector('a')?.getAttribute('href') ?? src;
   return `\n\n[Embedded: ${href.replace(/^https?:\/\/(www\.)?/, '').replace(/[?#].*$/, '')}](${href})\n\n`;
 } });
-turndown.addRule('pre', { filter: 'pre', replacement: (_content, node) => `\n\n\`\`\`\n${node.textContent.replace(/\n$/, '')}\n\`\`\`\n\n` });
+// Medium exports mark code line breaks with <br>, which textContent drops.
+const decode = html => html.replace(/<br\s*\/?>/g, '\n').replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+turndown.addRule('pre', { filter: 'pre', replacement: (_content, node) => `\n\n\`\`\`\n${decode(node.innerHTML).replace(/\n$/, '')}\n\`\`\`\n\n` });
 const cdata = value => value?.replace(/^\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*$/, '$1').trim() ?? '';
 const tag = (xml, name) => cdata(xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`))?.[1]);
 const text = html => html.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&#39;|&rsquo;/g, '’').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
@@ -58,12 +60,14 @@ async function fromExport(dir) {
 }
 const isDir = existsSync(source) && (await stat(source)).isDirectory();
 const posts = isDir ? await fromExport(source) : fromFeed(/^https?:/.test(source) ? await (await fetch(source, { headers: { 'user-agent': 'Mozilla/5.0 feed-reader' } })).text() : await readFile(source, 'utf8'));
+// Medium bodies often open with the title as a heading; the page already shows it.
+const dropTitle = (md, title) => md.replace(/^#{1,4} (.+)\n+/, (line, heading) => text(heading) === text(title) ? '' : line);
 let written = 0;
 for (const post of posts) {
   const file = path.join('blog', 'posts', `${slugOf(post.url)}.md`);
   if (existsSync(file) && !force) { console.log(`exists ${file} (use --force to overwrite)`); continue; }
   const description = oneLine(post.description).slice(0, 200);
-  await writeFile(file, `---\ntitle: ${oneLine(post.title)}\ndate: ${post.date}\ndescription: ${description}\ncanonical: ${post.url}\n---\n\n${turndown.turndown(post.html).trim()}\n`);
+  await writeFile(file, `---\ntitle: ${oneLine(post.title)}\ndate: ${post.date}\ndescription: ${description}\ncanonical: ${post.url}\n---\n\n${dropTitle(turndown.turndown(post.html).trim(), post.title)}\n`);
   console.log(`wrote ${file}`); written++;
 }
 console.log(`${written} of ${posts.length} posts written.`);

@@ -2,7 +2,7 @@
 title: Our YC F24 Application
 date: 2024-10-11
 description: Background LinkedIn — linkedin.com/in/agokrani Github —github.com/agokrani
-canonical: https://medium.com/@rohanbalkondekar/our-yc-f24-application-6798b41a2fde
+source: https://medium.com/@rohanbalkondekar/our-yc-f24-application-6798b41a2fde
 ---
 
 ![Outsight AI (www.outsight.in)](https://cdn-images-1.medium.com/max/1024/1*ShUX1hT8JcAfYpjrcdcsnw.png)

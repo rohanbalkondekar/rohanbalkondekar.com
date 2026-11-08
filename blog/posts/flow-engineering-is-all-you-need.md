@@ -2,7 +2,7 @@
 title: Flow Engineering is All You Need
 date: 2024-02-26
 description: We’re pushing the boundaries of what’s possible with Large Language Models (LLMs) by employing innovative frameworks that enhance their capabilities.
-canonical: https://medium.com/@rohanbalkondekar/flow-engineering-is-all-you-need-9046a5e7351d
+source: https://medium.com/@rohanbalkondekar/flow-engineering-is-all-you-need-9046a5e7351d
 ---
 
 We’re pushing the boundaries of what’s possible with Large Language Models (LLMs) by employing innovative frameworks that enhance their capabilities.

@@ -12,6 +12,8 @@ I founded [OutSight AI](https://www.outsight.in), an AI growth platform for smal
 
 Vibegrow runs Instagram growth through an agent: audits, reels, outreach, and you approve what ships. I use it on my own accounts first: I grow this audience with the product I'm building.
 
+[VentureBeat quoted me](https://venturebeat.com/technology/developers-say-openai-and-anthropic-safeguards-are-flagging-routine-work-and-costing-them-time) on how AI coding-model safeguards block routine security reviews.
+
 ## Experience
 
 ### AI Lead · Xsolla (2025 - Present)
@@ -50,12 +52,13 @@ More on [GitHub](https://github.com/rohanbalkondekar).
 
 ## Writing
 
-- [How to design your AI agents for success](https://medium.com/@rohanbalkondekar/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents-3146a6bfa373) (2025)
-- [Fuck You, Show Me The Prompt](https://medium.com/@rohanbalkondekar/fuck-you-show-me-the-prompt-update-454edb03aec0) (2025)
-- [Our YC F24 Application](https://medium.com/@rohanbalkondekar/our-yc-f24-application-6798b41a2fde) (2024)
-- [Flow Engineering is All You Need](https://medium.com/@rohanbalkondekar/flow-engineering-is-all-you-need-9046a5e7351d) (2024)
+- [Live log](https://rohanbalkondekar.com/live-log): thoughts as they happen, written straight to the page. Markdown: https://rohanbalkondekar.com/live-log.md
+- [How to design your AI agents for success](https://rohanbalkondekar.com/blog/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents) (2025)
+- [Fuck You, Show Me The Prompt](https://rohanbalkondekar.com/blog/fuck-you-show-me-the-prompt-update) (2025)
+- [Our YC F24 Application](https://rohanbalkondekar.com/blog/our-yc-f24-application) (2024)
+- [Flow Engineering is All You Need](https://rohanbalkondekar.com/blog/flow-engineering-is-all-you-need) (2024)
 
-More on [Medium](https://medium.com/@rohanbalkondekar).
+All writing: https://rohanbalkondekar.com/blog (Markdown index: https://rohanbalkondekar.com/blog.md; Atom feed: https://rohanbalkondekar.com/blog/feed.xml). Every post is also available as Markdown by adding `.md` to its URL.
 
 ## Contact
 

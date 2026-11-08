@@ -2,7 +2,7 @@
 title: How to design your AI Agents for success — A lesson from AI coding Agents
 date: 2025-06-29
 description: Measure user confidence by balancing the value users get against the psychological barriers they face
-canonical: https://medium.com/@rohanbalkondekar/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents-3146a6bfa373
+source: https://medium.com/@rohanbalkondekar/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents-3146a6bfa373
 ---
 
 ![AI Assisted Software Development](https://cdn-images-1.medium.com/max/711/1*jojCPYSLD0ym3E41PVDjxw.jpeg)

@@ -2,7 +2,7 @@
 title: GenAI — Act 3
 date: 2024-08-03
 description: An In-depth, Detailed Analysis of — What’s Next in AI?
-canonical: https://medium.com/@rohanbalkondekar/genai-act-3-51849a9233a2
+source: https://medium.com/@rohanbalkondekar/genai-act-3-51849a9233a2
 ---
 
 An In-depth, Detailed Analysis of — What’s Next in AI?

@@ -2,7 +2,7 @@
 title: Claude 3 — The New SOTA?
 date: 2024-03-07
 description: Claude 3 Opus is now the new SOTA LLM (Not taking Anthropic’s self-reported benchmark as the basis for this claim)
-canonical: https://medium.com/@rohanbalkondekar/claude-3-the-new-sota-5755af7f6fb8
+source: https://medium.com/@rohanbalkondekar/claude-3-the-new-sota-5755af7f6fb8
 ---
 
 ![](https://cdn-images-1.medium.com/max/1000/1*sxUhu58f_2LyFtBPP3at3g.png)

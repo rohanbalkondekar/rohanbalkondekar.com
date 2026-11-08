@@ -2,7 +2,7 @@
 title: Build Your Own Devin!
 date: 2024-03-16
 description: More specifically, Build your own AI Agents.
-canonical: https://medium.com/@rohanbalkondekar/build-your-own-devin-8d8794266315
+source: https://medium.com/@rohanbalkondekar/build-your-own-devin-8d8794266315
 ---
 
 ![Top-Secret-Devin-Architecture](https://cdn-images-1.medium.com/max/1024/1*Q25yxrDoOL7lTNlUSDxBZQ.png)

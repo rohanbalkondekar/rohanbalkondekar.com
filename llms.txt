@@ -5,8 +5,10 @@
 ## Key pages
 
 - [Home](https://rohanbalkondekar.com/): who Rohan is, experience, projects, writing. Markdown mirror at https://rohanbalkondekar.com/index.md
+- [Blog](https://rohanbalkondekar.com/blog.md): essays and notes as Markdown; add `.md` to any post URL. Atom feed: https://rohanbalkondekar.com/blog/feed.xml
+- [Live log](https://rohanbalkondekar.com/live-log.md): short thoughts as they happen, newest first
 - [Resume (PDF)](https://rohanbalkondekar.com/resume.pdf): full work history
-- [Full content as markdown](https://rohanbalkondekar.com/llms-full.txt): everything on the site in one file
+- [Full content as markdown](https://rohanbalkondekar.com/llms-full.txt): the homepage and every blog post in one file
 
 ## Elsewhere
 

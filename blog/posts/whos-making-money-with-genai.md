@@ -2,7 +2,7 @@
 title: Who’s making money with GenAI?
 date: 2024-03-27
 description: Accenture booked over $600M this quarter ($2.4B annualized) in Generative AI
-canonical: https://medium.com/@rohanbalkondekar/whos-making-money-with-genai-5a8dcacf7567
+source: https://medium.com/@rohanbalkondekar/whos-making-money-with-genai-5a8dcacf7567
 ---
 
 ![The GenAI Winners 👑](https://cdn-images-1.medium.com/max/907/1*RhqO6yaQ0MDATGIqOvXDbA.png)

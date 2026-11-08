@@ -9,7 +9,16 @@ header{display:flex;justify-content:space-between;align-items:baseline;margin-bo
 .muted{color:#8a8175}h1,h2,h3{font-weight:normal;margin:0}h1{font-size:32px;line-height:calc(var(--rule)*2)}h2{font-size:22px;line-height:var(--rule);margin-top:var(--rule)}h3{font-size:17px;font-style:italic;color:#7d6f60;margin-top:var(--rule)}p,ul,ol,blockquote,pre{margin:0 0 var(--rule)}ul,ol{padding-left:22px}pre{background:rgba(120,100,60,.06);padding:0 12px;line-height:var(--rule);overflow:auto;font-size:14px}code{font-size:.85em}blockquote{padding-left:16px;border-left:2px solid rgba(120,100,60,.25);color:#5d564c;font-style:italic}img{max-width:100%}hr{border:0;height:var(--rule);margin:0 0 var(--rule)}
 ::selection{background:rgba(255,214,90,.5)}
 @media(max-width:640px){:root{--margin:72px;--hole:8px;--hole-x:4px}body{font-size:17px}.page{padding-right:20px;padding-top:var(--rule)}header{margin-bottom:var(--rule)}nav a{margin-left:10px}}`;
-export function paper({ title, description = '', path, canonical = `https://rohanbalkondekar.com${path}`, body, extraCss = '', script = '' }) {
+// Head tags that help crawlers and agents: Open Graph, structured data, and the Markdown and feed versions.
+export const SITE = 'https://rohanbalkondekar.com';
+export const AUTHOR = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Rohan Balkondekar', url: `${SITE}/` };
+export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd }) {
+  return [`<meta property="og:type" content="${type}">`, `<meta property="og:title" content="${escape(title)}">`, `<meta property="og:description" content="${escape(description)}">`,
+    `<meta property="og:url" content="${escape(url)}">`, `<meta property="og:image" content="${SITE}/og.png">`, '<meta name="twitter:card" content="summary">',
+    markdown && `<link rel="alternate" type="text/markdown" href="${escape(markdown)}">`, `<link rel="alternate" type="application/atom+xml" title="Rohan Balkondekar: Blog" href="/blog/feed.xml">`,
+    jsonLd && `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`].filter(Boolean).join('\n');
+}
+export function paper({ title, description = '', path, canonical = `https://rohanbalkondekar.com${path}`, body, extraCss = '', script = '', markdown, type, jsonLd }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -18,6 +27,7 @@ export function paper({ title, description = '', path, canonical = `https://roha
 <title>${escape(title)}</title>
 <meta name="description" content="${escape(description)}">
 <link rel="canonical" href="${escape(canonical)}">
+${headMeta({ title, description, url: `${SITE}${path}`, type, markdown, jsonLd })}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>${css}${extraCss}</style>
 </head>

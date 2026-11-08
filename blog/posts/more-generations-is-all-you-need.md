@@ -2,7 +2,7 @@
 title: More Generations Is All You Need
 date: 2024-04-09
 description: More Agents Is All You Need 🤖
-canonical: https://medium.com/@rohanbalkondekar/more-generations-is-all-you-need-8c902256e4db
+source: https://medium.com/@rohanbalkondekar/more-generations-is-all-you-need-8c902256e4db
 ---
 
 ![](https://cdn-images-1.medium.com/max/857/0*3ZTWpFGoyKFmdj2Q)

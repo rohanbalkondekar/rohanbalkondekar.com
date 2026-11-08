@@ -10,11 +10,11 @@ test('blog frontmatter is required and parsed', () => {
   assert.throws(() => parsePost('b', 'no frontmatter'), /needs "title"/);
   assert.match(renderPost(post), /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/blog\/a">/);
 });
-test('imported posts point canonical at the original', () => {
-  const html = renderPost(parsePost('m', '---\ntitle: M\ndate: 2024-03-16\ncanonical: https://medium.com/@rohanbalkondekar/m-8d8794266315\n---\nBody'));
-  assert.match(html, /<link rel="canonical" href="https:\/\/medium\.com\/@rohanbalkondekar\/m-8d8794266315">/);
-  assert.match(html, /Originally published on Medium/);
-  assert.equal(parsePost('x', '---\ntitle: X\ndate: 2024-01-01\ncanonical: javascript:alert(1)\n---\n').canonical, undefined);
+test('imported posts stay canonical here and credit the original', () => {
+  const html = renderPost(parsePost('m', '---\ntitle: M\ndate: 2024-03-16\nsource: https://medium.com/@rohanbalkondekar/m-8d8794266315\n---\nBody'));
+  assert.match(html, /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/blog\/m">/);
+  assert.match(html, /<a href="https:\/\/medium\.com\/@rohanbalkondekar\/m-8d8794266315">Originally published on Medium<\/a>/);
+  assert.equal(parsePost('x', '---\ntitle: X\ndate: 2024-01-01\nsource: javascript:alert(1)\n---\n').source, undefined);
 });
 test('live log groups by IST day and escapes raw HTML', () => {
   const html = renderPage([
