@@ -1,15 +1,15 @@
 ---
 title: LLMs Were Supposed to Hit a Wall
 date: 2026-11-08
-description: So why didn't they? We found more levers 🕹️
+description: So why didn't they? We found more levers.
 layout: book
 ---
 
-You remember all the talk about LLMs plateauing out.
+<figure class="plate"><img src="/img/blog/archimedes-lever.png" alt="Engraving of Archimedes moving the Earth with a long lever resting on a rock" width="2400" height="1600"><figcaption>“Give me a place to stand, and I will move the Earth.”<small>Engraving from <i>Mechanics Magazine</i>, London, 1824</small></figcaption></figure>
 
-The bubble is gonna pop. Anytime now!
+You remember all the talk about LLMs plateauing out. The bubble is gonna pop. Anytime now!
 
-It was especially strong during 2025 when the only thing going for GPT-4.5 with est. 5-7T params was its “tasteful writing”🤌
+It was especially strong during 2025 when the only thing going for GPT-4.5 with est. 5-7T params was its *“tasteful writing.”*
 
 It was starting to feel like we were maxing out the scale lever.
 
@@ -26,11 +26,13 @@ These levers overlap, and they didn't happen neatly one after another.
 
 But they help explain why “we're hitting a wall” kept being followed by another performance jump.
 
+---
+
 ## The original scaling lever
 
 For a while, the recipe was pretty simple.
 
-More data + more compute + bigger model → Better performance
+<p class="aside">More data + more compute + bigger model → Better performance</p>
 
 Back in 2020, Dario Amodei and his colleagues at OpenAI had mapped out how language-model prediction loss improved with more parameters, data and training compute.
 
@@ -44,17 +46,15 @@ Funny comparison: A zebrafish has as many synapses as Qwen 3.8 27B has parameter
 
 A human brain has around 86 billion neurons and 164 trillion synapses in the neocortex alone, and is ~1,000,000x more sample efficient than LLMs, and there are no good explanations.
 
+---
+
 ## Test Time Compute
 
-You remember the prompting hacks
+You remember the prompting hacks:
 
-“Think harder”
+<p class="aside">“Think harder”<br>“Let's think step by step”</p>
 
-“Let's think step by step”
-
-People were already getting better answers by asking for intermediate steps.
-
-The 2022 chain-of-thought papers measured gains on reasoning tasks from prompts like these.
+People were already getting better answers by asking for intermediate steps. The 2022 chain-of-thought papers measured gains on reasoning tasks from prompts like these.
 
 With reasoning models, spending more compute before answering became something researchers deliberately trained and measured.
 
@@ -62,11 +62,11 @@ OpenAI reported that o1 improved with both more reinforcement learning (RL) trai
 
 So you had another lever to pull after the model was trained.
 
-But thinking longer can only take you so far.
-
-If the problem is super hard, you can't always wait three years for the answer.
+But thinking longer can only take you so far. If the problem is super hard, you can't always wait three years for the answer.
 
 And more thinking doesn't guarantee that the answer will be right.
+
+---
 
 ## Running out of Data
 
@@ -84,21 +84,21 @@ That gets you more mileage out of the data you have.
 
 Then there's compute and energy. You still have to buy the chips, build the data centres and power the whole thing.
 
+---
+
 ## Deep reinforcement learning
 
 This is where the whole "Agent" thing comes from.
 
-An agent observes its environment, takes an action and gets feedback through a reward.
-
-It learns from those interactions to improve its cumulative reward over time.
+An agent observes its environment, takes an action and gets feedback through a reward. It learns from those interactions to improve its cumulative reward over time.
 
 This is how AI learns to learn. You give agents a set of verifiable tasks and the agent figures out the solution itself.
 
-For an LLM, maths and code give you some fairly direct checks.
-
-Did it get the answer right? Did the code pass the tests?
+For an LLM, maths and code give you some fairly direct checks. Did it get the answer right? Did the code pass the tests?
 
 And bang! Coding is commoditized! And we are already seeing great progress in other verifiable domains like maths, physics, biology and more.
+
+---
 
 ## Multi-agent swarms
 
@@ -107,6 +107,8 @@ A few years ago, to get more mileage, you would split the task between multiple 
 Now you don't have to worry about that anymore. The model itself spins up multiple subagents (essentially copies of itself) to get things done in parallel.
 
 Generally it's just a couple dozen agents max, but the frontier labs are already on tens of thousands of agents all working together. That's how the Hugging Face hack happened.
+
+---
 
 ## Long Horizon
 

@@ -54,8 +54,8 @@
   --line-height: 1.4rem;
   --print-line-height: 1.4rem;
   --vertical-padding: var(--base-unit);
-  --column-height: calc(100vh - calc(var(--vertical-padding) * 4.0));
-  --column-height: calc(100svh - calc(var(--vertical-padding) * 4.0));
+  --column-height: calc(100vh - calc(var(--vertical-padding) * 2.5));
+  --column-height: calc(100svh - calc(var(--vertical-padding) * 2.5));
   --column-gap: var(--base-unit);
   --paper-hue: 100;
   --paper-saturation: 50%;
@@ -97,7 +97,9 @@ body {
   font-family: var(--body-text-font-stack);
   font-size: 1rem;
   font-weight: 400;
-  text-align: left; /* sigh */
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
   line-height: var(--line-height);
   color: var(--text-color);
 }
