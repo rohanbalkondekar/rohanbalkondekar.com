@@ -9,7 +9,7 @@ export function parsePost(slug, source) {
   const [, head = '', body = source] = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/) ?? [];
   const meta = Object.fromEntries(head.split('\n').filter(Boolean).map(line => [line.slice(0, line.indexOf(':')).trim(), line.slice(line.indexOf(':') + 1).trim().replace(/^["']|["']$/g, '')]));
   if (!meta.title || !/^\d{4}-\d{2}-\d{2}$/.test(meta.date ?? '')) throw new Error(`blog/posts/${slug}.md needs "title" and "date: YYYY-MM-DD" frontmatter`);
-  return { slug, title: meta.title, date: meta.date, description: meta.description ?? '', source: /^https:\/\//.test(meta.source ?? '') ? meta.source : undefined, draft: meta.draft === 'true', book: meta.layout === 'book', body };
+  return { slug, title: meta.title, date: meta.date, description: meta.description ?? '', source: /^https:\/\//.test(meta.source ?? '') ? meta.source : undefined, draft: meta.draft === 'true', book: meta.layout === 'book', image: body.match(/<img src="([^"]+)"/)?.[1], body };
 }
 export async function listPosts({ drafts = process.env.NODE_ENV !== 'production' } = {}) {
   const files = (await readdir(dir)).filter(file => file.endsWith('.md'));
@@ -25,12 +25,14 @@ export function renderIndex(posts) {
 }
 export function renderPost(post) {
   if (post.book) return renderBook(post);
-  return paper({ title: `${post.title} | Rohan Balkondekar`, description: post.description, path: `/blog/${post.slug}`, markdown: `/blog/${post.slug}.md`, type: 'article', jsonLd: postJsonLd(post),
+  return paper({ title: `${post.title} | Rohan Balkondekar`, description: post.description, path: `/blog/${post.slug}`, markdown: `/blog/${post.slug}.md`, type: 'article', jsonLd: postJsonLd(post), image: shareImage(post),
     extraCss: 'article img{display:block}article iframe{display:block;width:100%;aspect-ratio:16/9;border:0}',
     // Pad each image to a whole number of ruled lines so the text after it stays on the lines.
     script: "const snap=i=>{i.style.marginBottom=(28-i.getBoundingClientRect().height%28)%28+'px'};document.querySelectorAll('article img,article iframe').forEach(i=>{i.complete?snap(i):i.addEventListener('load',()=>snap(i))});addEventListener('resize',()=>document.querySelectorAll('article img,article iframe').forEach(snap))",
     body: `<main><article><h1>${escape(post.title)}</h1><p class="muted">By <a href="/" rel="author">Rohan Balkondekar</a> · <time datetime="${post.date}">${longDate(post.date)}</time>${post.source ? ` · <a href="${escape(post.source)}">Originally published on Medium</a>` : ''}</p>\n${marked.parse(post.body)}</article><hr><p class="muted"><a href="/blog">← All posts</a></p></main>` });
 }
+// A post's first picture is its share image; posts without one fall back to the site image.
+export const shareImage = post => post.image?.replace(/^\//, `${SITE}/`);
 // Plain Markdown versions of the blog, served at /blog.md and /blog/<slug>.md.
 export const postMarkdown = post => `# ${post.title}\n\n> Site index: https://rohanbalkondekar.com/llms.txt\n\n${post.date}${post.source ? ` · Originally published on Medium: ${post.source}` : ''}\n\n${post.body.trim().replace(/<figure[^>]*>\s*<img src="([^"]+)" alt="([^"]*)"[^>]*>\s*<figcaption>([\s\S]*?)<\/figcaption>\s*<\/figure>/g, (_m, src, alt, caption) => `![${alt}](${src.startsWith('/') ? `https://rohanbalkondekar.com${src}` : src})\n\n*${caption.replace(/<small>/g, ' ').replace(/<[^>]+>/g, '').trim()}*`)}\n`;
 export const indexMarkdown = posts => `# Blog\n\n> Site index: https://rohanbalkondekar.com/llms.txt\n\nEssays and notes by Rohan Balkondekar. Each post is also available as Markdown.\n\n${posts.map(post => `- [${post.title}](https://rohanbalkondekar.com/blog/${post.slug}.md) (${post.date})`).join('\n')}\n`;

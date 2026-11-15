@@ -12,13 +12,13 @@ header{display:flex;justify-content:space-between;align-items:baseline;margin-bo
 // Head tags that help crawlers and agents: Open Graph, structured data, and the Markdown and feed versions.
 export const SITE = 'https://rohanbalkondekar.com';
 export const AUTHOR = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Rohan Balkondekar', url: `${SITE}/` };
-export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd }) {
+export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd, image = `${SITE}/og.png` }) {
   return [`<meta property="og:type" content="${type}">`, `<meta property="og:title" content="${escape(title)}">`, `<meta property="og:description" content="${escape(description)}">`,
-    `<meta property="og:url" content="${escape(url)}">`, `<meta property="og:image" content="${SITE}/og.png">`, '<meta name="twitter:card" content="summary">',
+    `<meta property="og:url" content="${escape(url)}">`, `<meta property="og:image" content="${escape(image)}">`, '<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:image" content="${escape(image)}">`,
     markdown && `<link rel="alternate" type="text/markdown" href="${escape(markdown)}">`, `<link rel="alternate" type="application/atom+xml" title="Rohan Balkondekar: Blog" href="/blog/feed.xml">`,
     jsonLd && `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`].filter(Boolean).join('\n');
 }
-export function paper({ title, description = '', path, canonical = `https://rohanbalkondekar.com${path}`, body, extraCss = '', script = '', markdown, type, jsonLd }) {
+export function paper({ title, description = '', path, canonical = `https://rohanbalkondekar.com${path}`, body, extraCss = '', script = '', markdown, type, jsonLd, image }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +27,7 @@ export function paper({ title, description = '', path, canonical = `https://roha
 <title>${escape(title)}</title>
 <meta name="description" content="${escape(description)}">
 <link rel="canonical" href="${escape(canonical)}">
-${headMeta({ title, description, url: `${SITE}${path}`, type, markdown, jsonLd })}
+${headMeta({ title, description, url: `${SITE}${path}`, type, markdown, jsonLd, image })}
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
 <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
