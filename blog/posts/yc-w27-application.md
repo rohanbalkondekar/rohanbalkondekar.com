@@ -4,7 +4,7 @@ date: 2026-11-07
 description: The full Y Combinator Winter 2027 application for VibeGrow, our bet on agent swarms that run entire businesses.
 ---
 
-We applied to Y Combinator for the Winter 2027 batch with VibeGrow. Here is the application as we submitted it, answers unedited. We did the same for [our YC F24 application](/blog/our-yc-f24-application).
+We applied to Y Combinator for the Winter 2027 batch with VibeGrow. Here is the application as we submitted it, answers unedited. We did the same for [our YC F24 application](/writing/our-yc-f24-application).
 
 ## Founders
 

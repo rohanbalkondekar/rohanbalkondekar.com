@@ -55,14 +55,14 @@ More on [GitHub](https://github.com/rohanbalkondekar).
 ## Writing
 
 - [Live log](https://rohanbalkondekar.com/live-log): thoughts as they happen, written straight to the page. Markdown: https://rohanbalkondekar.com/live-log.md
-- [Perspirational, Inspirational, Aspirational](https://rohanbalkondekar.com/blog/perspirational-inspirational-aspirational) (2026)
-- [LLMs Were Supposed to Hit a Wall](https://rohanbalkondekar.com/blog/llms-were-supposed-to-hit-a-wall) (2026)
-- [How to design your AI agents for success](https://rohanbalkondekar.com/blog/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents) (2025)
-- [Fuck You, Show Me The Prompt](https://rohanbalkondekar.com/blog/fuck-you-show-me-the-prompt-update) (2025)
-- [Our YC F24 Application](https://rohanbalkondekar.com/blog/our-yc-f24-application) (2024)
-- [Flow Engineering is All You Need](https://rohanbalkondekar.com/blog/flow-engineering-is-all-you-need) (2024)
+- [Perspirational, Inspirational, Aspirational](https://rohanbalkondekar.com/writing/perspirational-inspirational-aspirational) (2026)
+- [LLMs Were Supposed to Hit a Wall](https://rohanbalkondekar.com/writing/llms-were-supposed-to-hit-a-wall) (2026)
+- [How to design your AI agents for success](https://rohanbalkondekar.com/writing/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents) (2025)
+- [Fuck You, Show Me The Prompt](https://rohanbalkondekar.com/writing/fuck-you-show-me-the-prompt-update) (2025)
+- [Our YC F24 Application](https://rohanbalkondekar.com/writing/our-yc-f24-application) (2024)
+- [Flow Engineering is All You Need](https://rohanbalkondekar.com/writing/flow-engineering-is-all-you-need) (2024)
 
-All writing: https://rohanbalkondekar.com/blog (Markdown index: https://rohanbalkondekar.com/blog.md; Atom feed: https://rohanbalkondekar.com/blog/feed.xml). Every post is also available as Markdown by adding `.md` to its URL.
+All writing: https://rohanbalkondekar.com/writing (Markdown index: https://rohanbalkondekar.com/writing.md; Atom feed: https://rohanbalkondekar.com/writing/feed.xml). Every post is also available as Markdown by adding `.md` to its URL.
 
 ## Contact
 

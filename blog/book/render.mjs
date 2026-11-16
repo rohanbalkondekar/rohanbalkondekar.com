@@ -23,8 +23,8 @@ export function renderBook(post) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(post.title)} | Rohan Balkondekar</title>
 <meta name="description" content="${escape(post.description)}">
-<link rel="canonical" href="https://rohanbalkondekar.com/blog/${post.slug}">
-${headMeta({ title: post.title, description: post.description, url: `${SITE}/blog/${post.slug}`, type: 'article', markdown: `/blog/${post.slug}.md`, jsonLd: postJsonLd(post), image: shareImage(post) })}
+<link rel="canonical" href="https://rohanbalkondekar.com/writing/${post.slug}">
+${headMeta({ title: post.title, description: post.description, url: `${SITE}/writing/${post.slug}`, type: 'article', markdown: `/writing/${post.slug}.md`, jsonLd: postJsonLd(post), image: shareImage(post) })}
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
 <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
@@ -46,7 +46,7 @@ ${THEME_TOGGLE}
 </div>
 ${title}
 ${typeset(marked.parse(cite(post.body)))}
-<p class="return-page"><a href="/blog">Back to the blog</a></p>
+<p class="return-page"><a href="/writing">Back to writing</a></p>
 <p class="last-page"></p>
 <div class="bookmark"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 40 80"><polygon points="0,0 0,80 20,70 40,80 40,0"/></svg></div>
 </div>

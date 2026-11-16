@@ -5,13 +5,13 @@ const wantsMarkdown = [{ type: "header" as const, key: "accept", value: "(.*)tex
 // HTML page → its Markdown version. Slugs are lowercase words, so .md, .xml and other files never match.
 const pages = [
   { html: "/", md: "/index.md" },
-  { html: "/blog", md: "/blog.md" },
-  { html: "/blog/:slug([a-z0-9-]+)", md: "/blog/:slug.md" },
+  { html: "/writing", md: "/writing.md" },
+  { html: "/writing/:slug([a-z0-9-]+)", md: "/writing/:slug.md" },
   { html: "/live-log", md: "/live-log.md" },
 ];
 const config: NextConfig = {
   async redirects() {
-    return [{ source: "/blogs/:path*", destination: "/blog/:path*", permanent: true }, { source: "/livelog", destination: "/live-log", permanent: true }];
+    return [...["/blog", "/blogs"].flatMap(old => [{ source: old, destination: "/writing", permanent: true }, { source: `${old}/:path*`, destination: "/writing/:path*", permanent: true }]), { source: "/blog.md", destination: "/writing.md", permanent: true }, { source: "/livelog", destination: "/live-log", permanent: true }];
   },
   async headers() {
     return [

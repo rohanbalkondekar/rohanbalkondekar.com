@@ -2,7 +2,7 @@
 
 ## Writing
 
-`/blog` is built from Markdown files in `blog/posts/`. The file name is the URL slug, and each file starts with frontmatter: `title`, `date: YYYY-MM-DD`, an optional `description`, and an optional `draft: true`. Drafts show in `npm run dev` but are left out of production builds. Publishing a post means committing the file and deploying. `/blogs/*` redirects to `/blog/*`.
+`/writing` is built from Markdown files in `blog/posts/`. The file name is the URL slug, and each file starts with frontmatter: `title`, `date: YYYY-MM-DD`, an optional `description`, and an optional `draft: true`. Drafts show in `npm run dev` but are left out of production builds. Publishing a post means committing the file and deploying. `/blogs/*` redirects to `/writing/*`.
 
 Medium posts are copied in with `node scripts/import-medium.mjs`. With no argument it reads the Medium RSS feed, which only carries the 10 most recent posts. For everything, download the export (Medium → Settings → Security and apps → Download your information), unzip it, and run `node scripts/import-medium.mjs ~/Downloads/medium-export`. Drafts and short responses are skipped, and existing files are kept unless you pass `--force`. Imported posts keep the Medium URL as `source:`: the page stays canonical on this site and shows an "Originally published on Medium" link.
 

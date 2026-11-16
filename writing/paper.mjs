@@ -29,7 +29,7 @@ export const AUTHOR = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Roha
 export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd, image = `${SITE}/og.png` }) {
   return [`<meta property="og:type" content="${type}">`, `<meta property="og:title" content="${escape(title)}">`, `<meta property="og:description" content="${escape(description)}">`,
     `<meta property="og:url" content="${escape(url)}">`, `<meta property="og:image" content="${escape(image)}">`, '<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:image" content="${escape(image)}">`,
-    markdown && `<link rel="alternate" type="text/markdown" href="${escape(markdown)}">`, `<link rel="alternate" type="application/atom+xml" title="Rohan Balkondekar: Blog" href="/blog/feed.xml">`,
+    markdown && `<link rel="alternate" type="text/markdown" href="${escape(markdown)}">`, `<link rel="alternate" type="application/atom+xml" title="Rohan Balkondekar: Writing" href="/writing/feed.xml">`,
     jsonLd && `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`].filter(Boolean).join('\n');
 }
 export function paper({ title, description = '', path, canonical = `https://rohanbalkondekar.com${path}`, body, extraCss = '', script = '', markdown, type, jsonLd, image }) {
@@ -51,7 +51,7 @@ ${THEME_HEAD}
 </head>
 <body>
 <div class="sheet"><div class="page">
-<header><a class="title" href="/">Rohan Balkondekar</a><nav>${[['/blog', 'Blog'], ['/live-log', 'Live log']].map(([href, label]) => `<a href="${href}"${String(path).startsWith(href) ? ' aria-current="page"' : ''}>${label}</a>`).join('')}${THEME_TOGGLE}</nav></header>
+<header><a class="title" href="/">Rohan Balkondekar</a><nav>${[['/writing', 'Writing'], ['/live-log', 'Live log']].map(([href, label]) => `<a href="${href}"${String(path).startsWith(href) ? ' aria-current="page"' : ''}>${label}</a>`).join('')}${THEME_TOGGLE}</nav></header>
 ${body}
 </div></div>${script ? `\n<script>${script}</script>` : ''}
 </body>

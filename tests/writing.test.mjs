@@ -8,11 +8,11 @@ test('blog frontmatter is required and parsed', () => {
   assert.deepEqual([post.title, post.date, post.draft], ['Hi: there', '2026-11-07', true]);
   assert.match(renderPost(post), /<strong>bold<\/strong>/);
   assert.throws(() => parsePost('b', 'no frontmatter'), /needs "title"/);
-  assert.match(renderPost(post), /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/blog\/a">/);
+  assert.match(renderPost(post), /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/writing\/a">/);
 });
 test('imported posts stay canonical here and credit the original', () => {
   const html = renderPost(parsePost('m', '---\ntitle: M\ndate: 2024-03-16\nsource: https://medium.com/@rohanbalkondekar/m-8d8794266315\n---\nBody'));
-  assert.match(html, /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/blog\/m">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/rohanbalkondekar\.com\/writing\/m">/);
   assert.match(html, /<a href="https:\/\/medium\.com\/@rohanbalkondekar\/m-8d8794266315">Originally published on Medium<\/a>/);
   assert.equal(parsePost('x', '---\ntitle: X\ndate: 2024-01-01\nsource: javascript:alert(1)\n---\n').source, undefined);
 });
