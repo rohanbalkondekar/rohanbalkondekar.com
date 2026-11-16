@@ -19,7 +19,7 @@ const script = `(()=>{const K='live-log-token',d=document,api='/live-log/api',hi
 const signIn=location.hash.match(/^#key=(.+)$/);if(signIn){try{token=decodeURIComponent(signIn[1]);localStorage.setItem(K,token)}catch(e){}history.replaceState(null,'',location.pathname)}
 const owner=()=>d.body.classList.toggle('owner',!!token);owner();
 let busy=false;async function send(method,payload){if(busy)return;busy=true;hint.textContent='Saving…';try{const r=await fetch(api,{method,headers:{'content-type':'application/json',authorization:'Bearer '+token},body:JSON.stringify({...payload,timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone})});
-if(r.status===401){localStorage.removeItem(K);token=null;owner();hint.textContent='Key rejected.';return}const j=await r.json().catch(()=>({}));if(!r.ok){hint.textContent=j.error||'Not saved: server error '+r.status;return}location.reload()}catch{hint.textContent='Not saved: network error. Try again.'}finally{busy=false}}
+if(r.status===401){localStorage.removeItem(K);token=null;hint.textContent='Key rejected, nothing was saved. Sign in again with the owner link.';return}const j=await r.json().catch(()=>({}));if(!r.ok){hint.textContent=j.error||'Not saved: server error '+r.status;return}location.reload()}catch{hint.textContent='Not saved: network error. Try again.'}finally{busy=false}}
 const box=d.getElementById('thought');box.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)&&box.value.trim())send('POST',{body:box.value})});
 d.getElementById('post').onclick=()=>box.value.trim()&&send('POST',{body:box.value});
 const key=d.getElementById('key');d.getElementById('write').onclick=()=>{if(token){localStorage.removeItem(K);token=null;owner();return}key.style.display='inline-block';key.focus()};
