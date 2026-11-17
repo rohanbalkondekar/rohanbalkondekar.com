@@ -51,7 +51,7 @@ ${THEME_HEAD}
 </head>
 <body>
 <div class="sheet"><div class="page">
-<header><a class="title" href="/">Rohan Balkondekar</a><nav>${[['/writing', 'Writing'], ['/live-log', 'Live log']].map(([href, label]) => `<a href="${href}"${String(path).startsWith(href) ? ' aria-current="page"' : ''}>${label}</a>`).join('')}${THEME_TOGGLE}</nav></header>
+<header><a class="title" href="/">Rohan Balkondekar</a><nav>${[['/writing', 'Writing'], ['/live-log', 'Live log'], ['/agent-log', 'Agent log']].map(([href, label]) => `<a href="${href}"${String(path).startsWith(href) ? ' aria-current="page"' : ''}>${label}</a>`).join('')}${THEME_TOGGLE}</nav></header>
 ${body}
 </div></div>${script ? `\n<script>${script}</script>` : ''}
 </body>
