@@ -1,6 +1,6 @@
 // Goals and updates posted by agents on Rohan's behalf. One table; a goal is an entry whose kind names its period.
 export class ValidationError extends Error {}
-export const KINDS = ['update', 'result', 'goal-day', 'goal-week', 'goal-month'];
+export const KINDS = ['update', 'result', 'goal-day', 'goal-week', 'goal-month', 'goal-year'];
 const toEntry = row => ({ id: row.id, createdAt: new Date(row.created_at).toISOString(), kind: row.kind, body: row.body, timeZone: row.time_zone ?? null, agent: row.agent ?? null, meta: row.meta ?? null });
 // Create the table or the agent column only when a query reports it missing.
 async function withSchema(sql, run) {

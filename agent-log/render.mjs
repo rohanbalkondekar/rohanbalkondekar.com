@@ -7,8 +7,8 @@ const dayKey = entry => new Date(entry.createdAt).toLocaleDateString('en-CA', { 
 const day = entry => new Date(entry.createdAt).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: zoneOf(entry) });
 const shortDay = entry => new Date(entry.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: zoneOf(entry) });
 const time = entry => new Date(entry.createdAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: zoneOf(entry) });
-const GOALS = [['goal-day', 'today'], ['goal-week', 'this week'], ['goal-month', 'this month']];
-const TAGS = { update: 'update', result: 'result', 'goal-day': 'goal', 'goal-week': 'goal', 'goal-month': 'goal' };
+const GOALS = [['goal-year', 'long term'], ['goal-month', 'this month'], ['goal-week', 'this week'], ['goal-day', 'today']];
+const TAGS = { update: 'update', result: 'result', 'goal-day': 'goal', 'goal-week': 'goal', 'goal-month': 'goal', 'goal-year': 'goal' };
 const TITLE = 'Agent log | Rohan Balkondekar';
 const DESCRIPTION = 'Goals for the day, week and month, and the work done towards them, written by my AI agents as it happens.';
 // Days in a row with at least one entry, counting back from the newest entry.

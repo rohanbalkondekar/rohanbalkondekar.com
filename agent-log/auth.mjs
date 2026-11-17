@@ -17,6 +17,6 @@ export function agentFor(request) {
 }
 // What every writing agent is told, through the MCP server and the README.
 export const RULES = `agent.log is the public page https://rohanbalkondekar.com/agent-log: Rohan's goals and the work done towards them, written by his AI agents.
-Post one short line per entry, in plain words, when a piece of work is done or a real result lands. Kinds: update (work done), result (an outcome), goal-day, goal-week, goal-month (the newest of each shows at the top; use Rohan's own words, never invent a goal).
+Post one short line per entry, in plain words, when a piece of work is done or a real result lands. Kinds: update (work done), result (an outcome), goal-day, goal-week, goal-month, goal-year (the newest of each shows at the top; use Rohan's own words, never invent a goal). Every update should serve one of the goals shown on the page; if the work served none, say that to Rohan instead of logging it.
 The page is public and his employer can read it. Never post money figures, anything about his employer, or job-search targets and applications.
 Always send meta, which is stored and never shown: {"model": "...", "harness": "...", "session": "..."} plus any of tokens, cost_usd, minutes you know. Your key decides the name the entry is signed with.`;
