@@ -18,63 +18,90 @@ function streak(entries) {
   for (let i = 1; i < days.length; i++) { if ((new Date(days[i - 1]) - new Date(days[i])) / 864e5 !== 1) break; run++; }
   return run;
 }
-// A full-screen terminal: phosphor green on near-black, scanlines, and a powerline prompt drawn with clip-path (no icon font needed).
-const css = `:root{color-scheme:dark;--screen:#0c130e;--fg:#b5f5c4;--dim:#5f8a6b;--green:#4ade80;--yellow:#facc15;--cyan:#22d3ee;--magenta:#e879f9;--blue:#60a5fa;--line:1.65em;--pad:clamp(14px,4.5vw,64px)}
-*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--screen);color:var(--fg);font:clamp(13.5px,1.05vw + 8px,17px)/var(--line) ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;-webkit-font-smoothing:antialiased}
+// Colour schemes. quiet is the default; the rest follow well-known terminal themes. The theme command or the status bar switches.
+const THEMES = {
+  quiet: 'bg:#0e100f;panel:#141716;fg:#d4d8d2;dim:#69736b;green:#8fd19e;yellow:#e0c27a;blue:#86b6d9;magenta:#c79bd8;cyan:#8fcfc8;red:#e08a84;glow:transparent;scan:0',
+  matrix: 'bg:#0b120d;panel:#101811;fg:#b9f3c6;dim:#5f8a6b;green:#4ade80;yellow:#facc15;blue:#60a5fa;magenta:#e879f9;cyan:#22d3ee;red:#f87171;glow:rgba(74,222,128,.14);scan:.05',
+  everforest: 'bg:#1e2326;panel:#272e33;fg:#d3c6aa;dim:#859289;green:#a7c080;yellow:#dbbc7f;blue:#7fbbb3;magenta:#d699b6;cyan:#83c092;red:#e67e80;glow:transparent;scan:0',
+  tokyo: 'bg:#1a1b26;panel:#16161e;fg:#c0caf5;dim:#565f89;green:#9ece6a;yellow:#e0af68;blue:#7aa2f7;magenta:#bb9af7;cyan:#7dcfff;red:#f7768e;glow:transparent;scan:0',
+  gruvbox: 'bg:#282828;panel:#1d2021;fg:#ebdbb2;dim:#928374;green:#b8bb26;yellow:#fabd2f;blue:#83a598;magenta:#d3869b;cyan:#8ec07c;red:#fb4934;glow:transparent;scan:0',
+  catppuccin: 'bg:#1e1e2e;panel:#181825;fg:#cdd6f4;dim:#6c7086;green:#a6e3a1;yellow:#f9e2af;blue:#89b4fa;magenta:#cba6f7;cyan:#94e2d5;red:#f38ba8;glow:transparent;scan:0',
+};
+const vars = spec => spec.split(';').map(pair => '--' + pair).join(';');
+// Layout: a tmux-style window bar on top (the site's navigation), the scrolling screen, a pinned prompt, and a status line.
+const css = `:root{color-scheme:dark;${vars(THEMES.quiet)};--line:1.65em;--pad:clamp(14px,4.5vw,64px)}
+${Object.entries(THEMES).map(([name, spec]) => `:root[data-theme=${name}]{${vars(spec)}}`).join('')}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--fg);font:clamp(13.5px,.55vw + 9px,16.5px)/var(--line) "JetBrains Mono","Fira Code","SF Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;-webkit-font-smoothing:antialiased}
 .term{display:flex;flex-direction:column;height:100vh;height:100dvh}
-.bar{flex:none;display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(#19231c,#111812);border-bottom:1px solid #1d2a21;color:var(--dim);font-size:12.5px}
-.bar i{width:12px;height:12px;border-radius:50%;background:#ff5f57}.bar i+i{background:#febc2e}.bar i+i+i{background:#28c840}.bar span{flex:1;text-align:center;margin-right:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.screen{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:26px var(--pad) 40px;text-shadow:0 0 7px rgba(74,222,128,.3);background:radial-gradient(ellipse at 50% 0,rgba(74,222,128,.09),transparent 60%);scrollbar-color:#1f3a28 transparent}
-.screen>*{max-width:1180px}
-.fx{position:fixed;inset:0;pointer-events:none;z-index:9;background:repeating-linear-gradient(rgba(0,0,0,0) 0 2px,rgba(0,0,0,.17) 2px 3px),radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.45))}
-a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}p{margin:0}
-.banner{margin:0 0 10px;font:inherit;font-size:clamp(5.6px,1.45vw,13px);line-height:1.15;color:var(--green);white-space:pre;overflow:hidden}
-.motd{color:var(--dim)}.stat{color:var(--dim);display:flex;flex-wrap:wrap;gap:0 .6em;align-items:center}.stat b{font-weight:600;color:var(--green)}.stat .on{color:var(--green)}
-button{font:inherit;color:var(--dim);background:none;border:1px solid #1f3a28;border-radius:4px;padding:0 .6em;line-height:1.5;cursor:pointer;text-shadow:inherit}button:hover{color:var(--fg);border-color:var(--dim)}button[aria-pressed=true]{color:#06110a;background:var(--green);border-color:var(--green);text-shadow:none}
-.filters{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
-.prompt{display:flex;flex-wrap:wrap;align-items:center;row-gap:4px;margin:var(--line) 0 calc(var(--line)/2);text-shadow:none}
-.seg{padding:0 17px 0 21px;margin-right:-8px;color:#06110a;font-weight:600;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%,9px 50%)}
-.seg:first-child{padding-left:12px;border-radius:4px 0 0 4px;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%)}
-.seg.a{background:var(--green)}.seg.b{background:var(--blue)}.seg.c{background:var(--yellow)}
-.cmd{margin-left:20px;color:#eafff0;text-shadow:0 0 7px rgba(74,222,128,.3)}.cmd:before,.type:before{content:'❯ ';color:var(--magenta)}
-.type{flex:1;min-width:9em;display:flex;gap:.6em;margin-left:20px;color:#eafff0}.type input{flex:1;min-width:0;font:inherit;color:inherit;background:none;border:0;outline:0;padding:0;caret-color:var(--green);text-shadow:0 0 7px rgba(74,222,128,.3)}.type input::placeholder{color:var(--dim)}
-.goals{margin:0;padding:0}.goals div{display:grid;grid-template-columns:7.6em 1fr;column-gap:14px}
-.goals dt{color:var(--yellow)}.goals dd{margin:0}.goals small,.by{color:var(--dim);font-size:inherit;font-style:normal}.unset{color:var(--dim)}
+a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}p{margin:0}b{font-weight:600}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.tmux,.status{flex:none;display:flex;align-items:center;gap:0 1.4em;padding:0 var(--pad);background:var(--panel);color:var(--dim);font-size:.86em;line-height:2.1;white-space:nowrap;overflow:hidden}
+.tmux .sess{color:var(--bg);background:var(--green);padding:0 .8em;margin-left:calc(-1 * var(--pad));font-weight:600}.tmux a{color:var(--dim)}.tmux a[aria-current]{color:var(--fg);font-weight:600}
+.status{gap:0 1.2em}.status .mode{color:var(--bg);background:var(--blue);padding:0 .8em;margin-left:calc(-1 * var(--pad));font-weight:600}.status kbd{font:inherit;color:var(--fg)}.status .right{margin-left:auto}.status .right b{color:var(--green)}.status button{color:var(--yellow)}.status button:hover{text-decoration:underline}
+.screen{flex:1;min-height:0;overflow:hidden auto;overscroll-behavior:contain;padding:22px var(--pad) 18px;text-shadow:0 0 7px var(--glow);scrollbar-color:var(--dim) transparent;outline:0}
+.screen>*{max-width:1120px}
+.fx{position:fixed;inset:0;pointer-events:none;z-index:9;background:repeating-linear-gradient(rgba(0,0,0,0) 0 2px,rgba(0,0,0,var(--scan)) 2px 3px)}
+h1{font:inherit;font-weight:600;color:var(--green);margin:0}
+.motd{color:var(--dim)}
+.prompt{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .6em;margin:var(--line) 0 .35em}
+.ps .u{color:var(--dim);font-weight:400}.ps .c{color:var(--green)}
+.cmd{color:var(--fg);font-weight:600}
+.filters{display:flex;gap:0 1.1em;margin-left:auto}.filters button{color:var(--dim)}.filters button:hover{color:var(--fg)}.filters button[aria-pressed=true]{color:var(--yellow)}.filters button[aria-pressed=true]:before{content:'['}.filters button[aria-pressed=true]:after{content:']'}
+.goals{margin:0;padding:0}.goals div{display:grid;grid-template-columns:7.6em 1fr;column-gap:14px}.goals dt{color:var(--yellow)}.goals dd{margin:0}.goals small,.by{color:var(--dim);font-size:inherit;font-style:normal}.unset{color:var(--dim)}
 h2{font:inherit;color:var(--dim);margin:var(--line) 0 0}.prompt+h2{margin-top:0}
-.screen{overflow-x:hidden}.log li span,.goals dd,.motd{min-width:0;overflow-wrap:anywhere}.log{list-style:none;margin:0;padding:0}.log li{display:grid;grid-template-columns:3.4em 4.2em 1fr;column-gap:14px;border-radius:3px}.log li:hover{background:rgba(74,222,128,.06)}.log li:target{background:rgba(250,204,21,.1)}.log time a{color:var(--dim)}.log b{font-weight:600;color:var(--green)}.log .result b{color:var(--yellow)}.log [class^=goal] b{color:var(--magenta)}.log .result span{color:#fff8d6}
-[hidden]{display:none!important}.empty,#out{color:var(--dim)}#out{white-space:pre-wrap}#out b{color:var(--fg);font-weight:600}
-footer{margin-top:var(--line);color:var(--dim);font-size:.87em}footer a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
-@media(max-width:640px){.bar{padding:8px 12px}.bar span{margin-right:0;text-align:right}.screen{padding:16px 12px 28px}.goals div{grid-template-columns:1fr;margin-bottom:6px}.log li{grid-template-columns:3.4em 1fr;margin-bottom:8px}.log li span{grid-column:1/-1}.seg{padding:0 13px 0 17px}.seg.b{display:none}.cmd,.type{margin-left:16px}.filters{margin-left:0;width:100%;margin-top:4px}}`;
-// Filters and a small command line. Everything works without it; the script only hides and shows what is already on the page.
-const script = `(()=>{const d=document,$=s=>d.querySelector(s),out=$('#out'),input=$('#cmd'),screen=$('.screen');
-const kinds={all:null,updates:'update',results:'result',goals:'goal'};
-function show(name){const kind=kinds[name];d.querySelectorAll('.log li').forEach(li=>li.hidden=!!kind&&!li.className.startsWith(kind));
-d.querySelectorAll('.log').forEach(ol=>ol.previousElementSibling.hidden=!ol.querySelector('li:not([hidden])'));
-d.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.show===name));return d.querySelectorAll('.log li:not([hidden])').length}
-d.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>show(b.dataset.show));
-const say=html=>{out.innerHTML=html;out.hidden=false;screen.scrollTop=screen.scrollHeight};
-const go={home:'/',writing:'/writing','live-log':'/live-log'};
-const run=text=>{const c=text.trim().toLowerCase();if(!c)return;
-if(c in kinds){const n=show(c);say('showing <b>'+c+'</b>: '+n+(n===1?' entry':' entries'));$('#log').scrollIntoView({behavior:'smooth'})}
-else if(c==='help')say('<b>all</b> · <b>updates</b> · <b>results</b> · <b>goals</b>   filter the log\n<b>top</b>   back to the start\n<b>whoami</b> · <b>date</b> · <b>clear</b>\n<b>home</b> · <b>writing</b> · <b>live-log</b>   leave this terminal')
-else if(c==='top'){screen.scrollTo({top:0,behavior:'smooth'});out.hidden=true}
-else if(c==='clear'){out.hidden=true;show('all')}
-else if(c==='whoami')say('a visitor. The agents here work for Rohan; you get read access.')
-else if(c==='date')say(new Date().toString())
-else if(c in go)location.href=go[c]
-else say('command not found: '+c.replace(/[<&]/g,'')+'. Try <b>help</b>.')};
-$('#line').onsubmit=e=>{e.preventDefault();run(input.value);input.value=''};
-d.addEventListener('keydown',e=>{if(e.key==='/'&&d.activeElement!==input){e.preventDefault();input.focus()}})})()`;
-const banner = [
-  ' █████╗  ██████╗ ███████╗███╗   ██╗████████╗   ██╗      ██████╗  ██████╗ ',
-  '██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝   ██║     ██╔═══██╗██╔════╝ ',
-  '███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║      ██║     ██║   ██║██║  ███╗',
-  '██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║      ██║     ██║   ██║██║   ██║',
-  '██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ██╗███████╗╚██████╔╝╚██████╔╝',
-  '╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ',
-].join('\n');
-const segs = '<span class="seg a">agent</span><span class="seg b">~/rohan/life</span><span class="seg c">main ✓</span>';
-const prompt = command => `<div class="prompt">${segs}<span class="cmd">${command}</span></div>`;
+.log{list-style:none;margin:0;padding:0}.log li{display:grid;grid-template-columns:3.4em 4.2em 1fr;column-gap:14px;margin-left:-10px;padding-left:8px;border-left:2px solid transparent;cursor:default}
+.log li:hover{background:color-mix(in srgb,var(--fg) 5%,transparent)}.log li.sel{background:color-mix(in srgb,var(--green) 13%,transparent);border-left-color:var(--green)}.log li:target{border-left-color:var(--yellow)}
+.log li span,.goals dd{min-width:0;overflow-wrap:anywhere}.log time a{color:var(--dim)}.log b{color:var(--green)}.log .result b{color:var(--yellow)}.log [class^=goal] b{color:var(--magenta)}
+[hidden]{display:none!important}.empty{color:var(--dim)}
+#out .prompt{margin-top:.8em}.res{color:var(--fg)}.res .k{color:var(--yellow)}.res .k:hover{text-decoration:underline}.res .d{color:var(--dim)}.res .err{color:var(--red)}
+.cmdline{flex:none;margin:0;padding:.55em var(--pad);border-top:1px solid color-mix(in srgb,var(--dim) 35%,transparent);flex-wrap:nowrap;text-shadow:0 0 7px var(--glow)}
+.cmdline .ps{white-space:nowrap}.cmdline input{flex:1;min-width:0;font:inherit;font-weight:600;color:var(--fg);background:none;border:0;outline:0;padding:0;caret-color:var(--green)}.cmdline input::placeholder{color:var(--dim);font-weight:400}
+.chips{display:none;flex:none;gap:.5em;padding:0 var(--pad) .6em;overflow-x:auto}.chips button{color:var(--dim);border:1px solid color-mix(in srgb,var(--dim) 45%,transparent);border-radius:4px;padding:0 .7em;white-space:nowrap}
+@media(hover:none){.chips{display:flex}.status .hints{display:none}}
+@media(max-width:700px){.tmux{gap:0 1em}.status .hints{display:none}.screen{padding-top:14px}.goals div{grid-template-columns:1fr;margin-bottom:6px}.log li{grid-template-columns:3.4em 1fr;margin-bottom:8px}.log li span{grid-column:1/-1}.prompt{gap:0 .5em}.filters{margin-left:0;width:100%}}`;
+const ps = '<span class="ps"><b class="u">agent</b> <b class="c">❯</b></span>';
+const prompt = (command, extra = '') => `<div class="prompt">${ps}<span class="cmd">${command}</span>${extra}</div>`;
+const COMMANDS = [['filter', ['all', 'updates', 'results', 'goals']], ['look', ['theme', 'agents']], ['go', ['home', 'writing', 'live-log']], ['misc', ['top', 'clear', 'whoami', 'date', 'help']]];
+// The page reads fine without this script; it adds filters, a command line, arrow-key selection and themes.
+const script = `(()=>{const d=document,$=s=>d.querySelector(s),$$=s=>[...d.querySelectorAll(s)];
+const screen=$('.screen'),out=$('#out'),input=$('#cmd'),themeBtn=$('#theme'),PS=$('#line .ps').outerHTML;
+const kinds={all:'',updates:'update',results:'result',goals:'goal'},themes=${JSON.stringify(Object.keys(THEMES))},cmds=${JSON.stringify(COMMANDS)};
+const go={home:'/',writing:'/writing','live-log':'/live-log'},fine=matchMedia('(hover:hover)').matches;
+let sel=-1;
+const visible=()=>$$('.log li').filter(li=>!li.hidden);
+function select(i){const items=visible();$$('.log li.sel').forEach(li=>li.classList.remove('sel'));sel=Math.max(-1,Math.min(i,items.length-1));if(sel>=0){items[sel].classList.add('sel');items[sel].scrollIntoView({block:'nearest'})}}
+function show(name){const kind=kinds[name];$$('.log li').forEach(li=>{li.hidden=!!kind&&!li.className.startsWith(kind)});
+$$('.log').forEach(ol=>{ol.previousElementSibling.hidden=!ol.querySelector('li:not([hidden])')});
+$$('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.show===name)));select(-1);return visible().length}
+function theme(name){d.documentElement.dataset.theme=name;themeBtn.textContent='theme:'+name;try{localStorage.setItem('agent-log-theme',name)}catch(e){}}
+theme(d.documentElement.dataset.theme||themes[0]);
+function print(cmd,html){const row=d.createElement('div');row.innerHTML='<div class="prompt">'+PS+'<span class="cmd"></span></div><div class="res">'+html+'</div>';row.querySelector('.cmd').textContent=cmd;out.appendChild(row);screen.scrollTop=screen.scrollHeight}
+const key=name=>'<button type="button" class="k" data-run="'+name+'">'+name+'</button>';
+function run(text){const raw=text.trim();if(!raw)return;const parts=raw.toLowerCase().split(' ').filter(Boolean),c=parts[0],arg=parts[1];let res;
+if(c in kinds){const n=show(c);res='showing '+c+': '+n+(n===1?' entry':' entries')+'. <span class="d">Arrow keys move through them.</span>'}
+else if(c==='help')res=cmds.map(g=>'<span class="d">'+g[0]+'</span> '+g[1].map(key).join(' ')).join('<br>')+'<br><span class="d">keys</span> ↑ ↓ move · enter open · tab complete · esc reset';
+else if(c==='theme'){if(themes.includes(arg)){theme(arg);res='theme set to '+arg}else res=themes.map(t=>'<button type="button" class="k" data-run="theme '+t+'">'+t+'</button>').join('  ')+'<br><span class="d">usage: theme tokyo</span>'}
+else if(c==='agents'){const n={};$$('.log li').forEach(li=>{const by=li.querySelector('.by');const who=by?by.textContent.replace('·','').trim():'unsigned';n[who]=(n[who]||0)+1});res=Object.keys(n).map(k=>k+' <span class="d">'+n[k]+'</span>').join('<br>')}
+else if(c==='whoami')res='a visitor. The agents here work for Rohan; you get read access.';
+else if(c==='date')res=new Date().toString();
+else if(c==='top'){screen.scrollTo({top:0});select(-1);return}
+else if(c==='clear'){out.textContent='';show('all');return}
+else if(c in go){location.href=go[c];return}
+else res='<span class="err">command not found: '+c.replace(/[^a-z0-9._-]/g,'')+'</span>. Type '+key('help')+'.';
+print(raw,res)}
+function open(li){const link=li.querySelector('span a');if(link)location.href=link.href;else{history.replaceState(null,'','#'+li.id);print('open '+li.id,'<span class="d">no link in this entry; its address is now in the address bar</span>')}}
+$('#line').addEventListener('submit',e=>{e.preventDefault();const v=input.value;input.value='';if(!v.trim()&&sel>=0)open(visible()[sel]);else run(v)});
+d.addEventListener('click',e=>{const b=e.target.closest('[data-run],[data-show]');if(b){if(b.dataset.run)run(b.dataset.run);else show(b.dataset.show);if(fine)input.focus();return}
+if(e.target===themeBtn){theme(themes[(themes.indexOf(d.documentElement.dataset.theme)+1)%themes.length]);return}
+const li=e.target.closest('.log li');if(li&&!e.target.closest('a')){select(visible().indexOf(li));return}
+if(fine&&!e.target.closest('a')&&!String(getSelection()))input.focus()});
+d.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const typing=d.activeElement===input,empty=!input.value;
+if(e.key==='ArrowDown'||e.key==='ArrowUp'||(empty&&(e.key==='j'||e.key==='k'))){e.preventDefault();select(e.key==='ArrowDown'||e.key==='j'?sel+1:Math.max(sel-1,0));return}
+if(e.key==='Escape'){input.value='';select(-1);return}
+if(empty&&e.key==='?'){e.preventDefault();run('help');return}
+if(e.key==='Tab'&&typing&&!empty){const hit=cmds.flatMap(g=>g[1]).filter(n=>n.startsWith(input.value.toLowerCase()));if(hit.length){e.preventDefault();input.value=hit[0]+(hit[0]==='theme'?' ':'')}return}
+if(!typing&&e.key.length===1)input.focus()});
+if(fine)input.focus()})()`;
 export function renderPage(entries, { stale = false } = {}) {
   const goals = GOALS.map(([kind, label]) => {
     const goal = entries.find(entry => entry.kind === kind);
@@ -88,35 +115,38 @@ export function renderPage(entries, { stale = false } = {}) {
   }
   const log = days.map(group => `<h2># ${group.label}</h2>\n<ol class="log">${group.entries.map(entry => `<li class="${entry.kind}" id="e${entry.id}"><time datetime="${entry.createdAt}"><a href="#e${entry.id}">${time(entry)}</a></time><b>${TAGS[entry.kind] ?? 'update'}</b><span>${markdown.parseInline(entry.body)}${entry.agent ? ` <i class="by">· ${escape(entry.agent)}</i>` : ''}</span></li>`).join('\n')}</ol>`).join('\n');
   const results = entries.filter(entry => entry.kind === 'result').length, run = streak(entries);
+  const filters = `<span class="filters">${['all', 'updates', 'results', 'goals'].map((name, i) => `<button type="button" data-show="${name}" aria-pressed="${i === 0}">${name}</button>`).join('')}</span>`;
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#111812">
+<meta name="theme-color" content="#141716">
 <title>${escape(TITLE)}</title>
 <meta name="description" content="${escape(DESCRIPTION)}">
 <link rel="canonical" href="${SITE}/agent-log">
 ${headMeta({ title: TITLE, description: DESCRIPTION, url: `${SITE}/agent-log` })}
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+<script>try{var t=localStorage.getItem('agent-log-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>${css}</style>
 </head>
 <body>
-<div class="term"><div class="bar"><i></i><i></i><i></i><span>agent@rohan: ~/agent-log</span></div>
+<div class="term">
+<nav class="tmux" aria-label="Site"><span class="sess">rohan</span><a href="/">0:home</a><a href="/writing">1:writing</a><a href="/live-log">2:live-log</a><a href="/agent-log" aria-current="page">3:agent-log*</a></nav>
 <main class="screen">
-<pre class="banner" aria-hidden="true">${banner}</pre>
-<h1 hidden>Agent log</h1>
-<p class="motd">Written by Rohan's AI agents, not by Rohan. His goals for the day, week and month, and the work done towards them, as it happens.${stale ? ' Live data is unavailable right now.' : ''}</p>
-<p class="stat"><span><span class="on">●</span> <b>${entries.length}</b> ${entries.length === 1 ? 'entry' : 'entries'} · <b>${results}</b> ${results === 1 ? 'result' : 'results'} · streak <b>${run}d</b></span><span class="filters">${['all', 'updates', 'results', 'goals'].map((name, i) => `<button type="button" data-show="${name}" aria-pressed="${i === 0}">${name}</button>`).join('')}</span></p>
+<h1>agent.log</h1>
+<p class="motd">Rohan's goals and the work towards them, logged by his AI agents.${stale ? ' Live data is unavailable right now.' : ''}</p>
 ${prompt('cat goals.md')}
 <dl class="goals">${goals}</dl>
-<div id="log">${prompt('agent-log --follow')}
+<div id="log">${prompt('agent-log --follow', filters)}
 ${log || '<p class="empty">nothing yet</p>'}</div>
-<p id="out" hidden></p>
-<form class="prompt" id="line">${segs}<label class="type"><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help, or press /" aria-label="Command line: type help"></label></form>
-<footer><a href="/">rohanbalkondekar.com</a> · <a href="/writing">writing</a> · <a href="/live-log">live log</a> (that one he writes himself)</footer>
-</main></div>
+<div id="out" aria-live="polite"></div>
+</main>
+<form class="prompt cmdline" id="line">${ps}<input id="cmd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="type help" aria-label="Command line. Type help for commands."></form>
+<div class="chips">${['help', 'results', 'goals', 'all', 'theme'].map(name => `<button type="button" data-run="${name}">${name}</button>`).join('')}</div>
+<footer class="status"><span class="mode">LOG</span><span class="hints"><kbd>↑↓</kbd> move · <kbd>?</kbd> help</span><button type="button" id="theme">theme</button><span class="right"><b>${entries.length}</b> ${entries.length === 1 ? 'entry' : 'entries'} · <b>${results}</b> ${results === 1 ? 'result' : 'results'} · streak <b>${run}d</b></span></footer>
+</div>
 <div class="fx" aria-hidden="true"></div>
 <script>${script}</script>
 </body>
