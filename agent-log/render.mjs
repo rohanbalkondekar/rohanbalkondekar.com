@@ -21,7 +21,7 @@ function streak(entries) {
 // Colour schemes. quiet is the default; the rest follow well-known terminal themes. The theme command or the status bar switches.
 const THEMES = {
   quiet: 'bg:#0e100f;panel:#141716;fg:#d4d8d2;dim:#69736b;green:#8fd19e;yellow:#e0c27a;blue:#86b6d9;magenta:#c79bd8;cyan:#8fcfc8;red:#e08a84;glow:transparent;scan:0',
-  matrix: 'bg:#0b120d;panel:#101811;fg:#b9f3c6;dim:#5f8a6b;green:#4ade80;yellow:#facc15;blue:#60a5fa;magenta:#e879f9;cyan:#22d3ee;red:#f87171;glow:rgba(74,222,128,.14);scan:.05',
+  matrix: 'bg:#0b120d;panel:#101811;fg:#b9f3c6;dim:#5f8a6b;green:#4ade80;yellow:#facc15;blue:#60a5fa;magenta:#e879f9;cyan:#22d3ee;red:#f87171;glow:rgba(74,222,128,.3);scan:.14',
   everforest: 'bg:#1e2326;panel:#272e33;fg:#d3c6aa;dim:#859289;green:#a7c080;yellow:#dbbc7f;blue:#7fbbb3;magenta:#d699b6;cyan:#83c092;red:#e67e80;glow:transparent;scan:0',
   tokyo: 'bg:#1a1b26;panel:#16161e;fg:#c0caf5;dim:#565f89;green:#9ece6a;yellow:#e0af68;blue:#7aa2f7;magenta:#bb9af7;cyan:#7dcfff;red:#f7768e;glow:transparent;scan:0',
   gruvbox: 'bg:#282828;panel:#1d2021;fg:#ebdbb2;dim:#928374;green:#b8bb26;yellow:#fabd2f;blue:#83a598;magenta:#d3869b;cyan:#8ec07c;red:#fb4934;glow:transparent;scan:0',
@@ -76,11 +76,15 @@ $$('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.
 function theme(name){d.documentElement.dataset.theme=name;themeBtn.textContent='theme:'+name;try{localStorage.setItem('agent-log-theme',name)}catch(e){}}
 theme(d.documentElement.dataset.theme||themes[0]);
 function print(cmd,html){const row=d.createElement('div');row.innerHTML='<div class="prompt">'+PS+'<span class="cmd"></span></div><div class="res">'+html+'</div>';row.querySelector('.cmd').textContent=cmd;out.appendChild(row);screen.scrollTop=screen.scrollHeight}
+const tkey=name=>'<button type="button" class="k" data-run="theme '+name+'">'+name+'</button>';
 const key=name=>'<button type="button" class="k" data-run="'+name+'">'+name+'</button>';
 function run(text){const raw=text.trim();if(!raw)return;const parts=raw.toLowerCase().split(' ').filter(Boolean),c=parts[0],arg=parts[1];let res;
-if(c in kinds){const n=show(c);res='showing '+c+': '+n+(n===1?' entry':' entries')+'. <span class="d">Arrow keys move through them.</span>'}
-else if(c==='help')res=cmds.map(g=>'<span class="d">'+g[0]+'</span> '+g[1].map(key).join(' ')).join('<br>')+'<br><span class="d">keys</span> ↑ ↓ move · enter open · tab complete · esc reset';
-else if(c==='theme'){if(themes.includes(arg)){theme(arg);res='theme set to '+arg}else res=themes.map(t=>'<button type="button" class="k" data-run="theme '+t+'">'+t+'</button>').join('  ')+'<br><span class="d">usage: theme tokyo</span>'}
+const win=/^[0-9]$/.test(c)?$$('.tmux a')[+c]:null;
+if(win){if(!win.hasAttribute('aria-current')){location.href=win.href;return}res='already here: '+win.textContent.replace('*','')}
+else if(c in kinds){const n=show(c);res='showing '+c+': '+n+(n===1?' entry':' entries')+'. <span class="d">Arrow keys move through them.</span>'}
+else if(c==='help')res=cmds.map(g=>'<span class="d">'+g[0]+'</span> '+g[1].map(key).join(' ')).join('<br>')+'<br><span class="d">keys</span> ↑ ↓ move · enter open · tab complete · esc reset · 0-3 switch window';
+else if(c==='theme'){const now=d.documentElement.dataset.theme,pick=arg==='random'?themes.filter(x=>x!==now)[Math.floor(Math.random()*(themes.length-1))]:arg;
+if(themes.includes(pick)){theme(pick);res='theme set to '+pick}else res=themes.concat('random').map(tkey).join('  ')}
 else if(c==='agents'){const n={};$$('.log li').forEach(li=>{const by=li.querySelector('.by');const who=by?by.textContent.replace('·','').trim():'unsigned';n[who]=(n[who]||0)+1});res=Object.keys(n).map(k=>k+' <span class="d">'+n[k]+'</span>').join('<br>')}
 else if(c==='whoami')res='a visitor. The agents here work for Rohan; you get read access.';
 else if(c==='date')res=new Date().toString();
@@ -99,8 +103,11 @@ d.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const 
 if(e.key==='ArrowDown'||e.key==='ArrowUp'||(empty&&(e.key==='j'||e.key==='k'))){e.preventDefault();select(e.key==='ArrowDown'||e.key==='j'?sel+1:Math.max(sel-1,0));return}
 if(e.key==='Escape'){input.value='';select(-1);return}
 if(empty&&e.key==='?'){e.preventDefault();run('help');return}
-if(e.key==='Tab'&&typing&&!empty){const hit=cmds.flatMap(g=>g[1]).filter(n=>n.startsWith(input.value.toLowerCase()));if(hit.length){e.preventDefault();input.value=hit[0]+(hit[0]==='theme'?' ':'')}return}
+if(e.key==='Tab'&&typing){e.preventDefault();const v=input.value.toLowerCase();if(empty){run('help');return}
+if(v.startsWith('theme ')){const th=themes.concat('random').filter(x=>x.startsWith(v.slice(6).trim()));if(th.length===1)input.value='theme '+th[0];else if(th.length)print(v,th.map(tkey).join('  '));return}
+const hit=cmds.flatMap(g=>g[1]).filter(n=>n.startsWith(v));if(hit.length===1)input.value=hit[0]+(hit[0]==='theme'?' ':'');else if(hit.length)print(v,hit.map(key).join('  '));return}
 if(!typing&&e.key.length===1)input.focus()});
+if(location.href.endsWith('?'))history.replaceState(null,'',location.pathname);
 if(fine)input.focus()})()`;
 export function renderPage(entries, { stale = false } = {}) {
   const goals = GOALS.map(([kind, label]) => {
