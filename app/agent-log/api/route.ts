@@ -11,7 +11,7 @@ function authorized(request: Request) {
   if (given.length < 32) return false;
   return timingSafeEqual(createHash("sha256").update(given).digest(), Buffer.from(WRITE_KEY_SHA256, "hex"));
 }
-type Payload = { id?: string; kind?: string; body?: unknown; timeZone?: unknown };
+type Payload = { id?: string; kind?: string; body?: unknown; timeZone?: unknown; agent?: unknown };
 async function write(request: Request, action: (body: Payload) => Promise<unknown>) {
   if (!authorized(request)) return reply({ error: "Write key required." }, 401);
   let body;
