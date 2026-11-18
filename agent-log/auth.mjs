@@ -6,6 +6,7 @@ const KEYS = {
   '9364d04a83825037a65648f7e9383d720481648eb8926b9a7df20e53f23dfdd1': 'claude',
   'e060410d12b5c880fce0b53e782e13a2bba50f4c97c096e4b49a823dd8fbfbf5': 'codex',
   '7ce3e3719b9d5d45ab1aa22346908d9f78fddc135d4cbc0da58b5aac6685e155': 'vibegrow',
+  '9f3e58e9eb63b448e686e3cdd98ed7988c2f10791f806dc52e6fda7f7ddcfc81': 'devin',
 };
 // The agent a request's key belongs to, or null. The key comes as a Bearer token or as ?key= in the URL.
 export function agentFor(request) {
