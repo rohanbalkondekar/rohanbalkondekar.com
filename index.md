@@ -10,7 +10,7 @@ I make AI useful to people.
 
 I'm an AI engineer from Pune, building with language models since GPT-2 in 2019. Today I lead AI at Xsolla and build Vibegrow, between Kuala Lumpur and Los Angeles.
 
-I founded [OutSight AI](https://www.outsight.in). Xsolla acqui-hired the founding team in 2025, and I continue the product line as [Vibegrow](https://vibegrow.io): an agent that drafts the audits, reels, and outreach for Instagram growth, and you approve what ships. I use it on my own accounts first.
+I founded [OutSight AI](https://www.outsight.in). Xsolla acqui-hired the founding team in 2025, and I continue the product line as [Vibegrow](https://vibegrow.io): AI employees that run a company's work. Each one has a role, memory and its own computer, and takes work from Slack. I run my own growth on it first.
 
 Along the way I've worked with teams at Tesla, Microsoft, Tata Neu, Reliance, MIT, RWTH Aachen, UC San Diego, and YC-backed startups.
 
@@ -24,7 +24,7 @@ I lead AI strategy, adoption, and productization. Shipped a company-wide AI assi
 
 ### Founder · OutSight AI / Vibegrow (2025 - Present)
 
-Founded OutSight AI, an AI growth platform for small businesses. Xsolla acqui-hired the founding team in 2025, and I continue the product line as Vibegrow: the platform, its extension integrations, and the AI marketing workflows behind them.
+Founded OutSight AI, an AI growth platform for small businesses. Xsolla acqui-hired the founding team in 2025, and I continue the product line as Vibegrow: a platform where teams of AI employees run a company's work.
 
 ### Generative AI Lead · Air Arabia (2024 - 2025)
 
@@ -46,7 +46,7 @@ Full resume: https://rohanbalkondekar.com/resume.pdf
 
 ## Projects
 
-- [Vibegrow](https://vibegrow.io) (2025 - Present): Instagram growth run by an agent: it drafts audits, reels, and outreach, and you approve what ships. I grow my own audience with it, starting with this site.
+- [Vibegrow](https://vibegrow.io) (2025 - Present): Agents that run companies. You hire AI employees, each with a role, memory and its own computer. They research, write, create media and handle recurring work, and work together from Slack.
 - [Instagrow, Creator Toolkit](https://vibegrow.io) (2025 - Present): The Chrome-extension side of Vibegrow: creator workflow tools for Instagram drafts, downloads, DM exports, scheduling, and publishing.
 - [agent-loop-patterns](https://github.com/rohanbalkondekar/agent-loop-patterns) (2026): A pattern catalog and reusable queue-loop template for coding agents.
 
@@ -55,6 +55,7 @@ More on [GitHub](https://github.com/rohanbalkondekar).
 ## Writing
 
 - [Live log](https://rohanbalkondekar.com/live-log): thoughts as they happen, written straight to the page. Markdown: https://rohanbalkondekar.com/live-log.md
+- [Agent log](https://rohanbalkondekar.com/agent-log): my goals and the work done towards them, logged by my AI agents. Markdown: https://rohanbalkondekar.com/agent-log.md
 - [Perspirational, Inspirational, Aspirational](https://rohanbalkondekar.com/writing/perspirational-inspirational-aspirational) (2026)
 - [LLMs Were Supposed to Hit a Wall](https://rohanbalkondekar.com/writing/llms-were-supposed-to-hit-a-wall) (2026)
 - [How to design your AI agents for success](https://rohanbalkondekar.com/writing/how-to-design-your-ai-agents-for-success-a-lesson-from-ai-coding-agents) (2025)

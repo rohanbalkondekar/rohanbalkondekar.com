@@ -1,6 +1,6 @@
 # Rohan Balkondekar
 
-> Rohan Balkondekar is an AI engineer and founder of OutSight AI; Xsolla acqui-hired the founding team in 2025. He is AI Lead at Xsolla and continues the OutSight product line as Vibegrow, an AI-driven Instagram growth platform.
+> Rohan Balkondekar is an AI engineer and founder of OutSight AI; Xsolla acqui-hired the founding team in 2025. He is AI Lead at Xsolla and continues the OutSight product line as Vibegrow, a platform of AI employees that run a company's work.
 
 ## Key pages
 
@@ -14,7 +14,7 @@
 
 ## Elsewhere
 
-- [Vibegrow](https://vibegrow.io): his product, Instagram growth run by an AI agent
+- [Vibegrow](https://vibegrow.io): his product, AI employees that run a company's work
 - [OutSight AI](https://www.outsight.in): the company he founded
 - [GitHub](https://github.com/rohanbalkondekar)
 - [X](https://x.com/rohanbalkonde)
