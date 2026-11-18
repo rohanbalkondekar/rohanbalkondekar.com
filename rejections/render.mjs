@@ -37,3 +37,9 @@ export function renderPage(data, { stale = false } = {}) {
 </html>
 `;
 }
+// Markdown version for agents: the counts, then every ask with its status.
+export const rejectionsMarkdown = (data, { stale = false } = {}) => {
+  const stats = summarize(data);
+  const rows = data.entries.map((entry, index) => `${index + 1}. **${entry.title}**: ${labels[entry.status]}${entry.submittedDate ? `, asked ${date(entry.submittedDate)}` : ''}${entry.note ? `. ${entry.note}` : ''}`).join('\n');
+  return `# Rejections\n\n> Site index: https://rohanbalkondekar.com/llms.txt\n\nRohan Balkondekar's public log of asks: ${data.challenge.target.toLocaleString('en-US')} genuine asks between ${date(data.challenge.startDate)} and ${date(data.challenge.endDate)}.${stale ? ' Live data is unavailable right now; this is the last saved snapshot.' : ''} The same data as JSON: https://rohanbalkondekar.com/rejections/api/entries\n\n- Total asks: ${stats.attempts} of ${data.challenge.target.toLocaleString('en-US')}\n- Rejected: ${stats.rejected}\n- Accepted: ${stats.accepted}\n- Waiting: ${stats.pending}\n- In progress, not yet asked: ${stats.in_progress}\n\n## Asks\n\n${rows || 'Nothing yet.'}\n`;
+};

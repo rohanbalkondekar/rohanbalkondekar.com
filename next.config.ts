@@ -8,6 +8,8 @@ const pages = [
   { html: "/writing", md: "/writing.md" },
   { html: "/writing/:slug([a-z0-9-]+)", md: "/writing/:slug.md" },
   { html: "/live-log", md: "/live-log.md" },
+  { html: "/agent-log", md: "/agent-log.md" },
+  { html: "/rejections", md: "/rejections.md" },
 ];
 const config: NextConfig = {
   async redirects() {

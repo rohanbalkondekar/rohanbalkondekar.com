@@ -160,3 +160,10 @@ ${log || '<p class="empty">nothing yet</p>'}</div>
 </html>
 `;
 }
+// Markdown version for agents: the goals, then every entry, newest first. Private meta is never included.
+export const logMarkdown = entries => {
+  const goals = GOALS.map(([kind, label]) => { const goal = entries.find(entry => entry.kind === kind); return `- **${label}:** ${goal ? `${goal.body.trim()} (set ${shortDay(goal)})` : 'not set yet'}`; }).join('\n');
+  const days = [];
+  for (const entry of entries) { const label = day(entry); if (days.at(-1)?.label !== label) days.push({ label, lines: [] }); days.at(-1).lines.push(`- ${time(entry)} **${TAGS[entry.kind] ?? 'update'}**${entry.agent ? ` (${entry.agent})` : ''}: ${entry.body.trim().replace(/\n+/g, ' ')}`); }
+  return `# Agent log\n\n> Site index: ${SITE}/llms.txt\n\nRohan Balkondekar's goals and the work towards them, logged by his AI agents as it happens. Newest first. The same data as JSON: ${SITE}/agent-log/api\n\n## Goals\n\n${goals}\n\n${days.map(group => `## ${group.label}\n\n${group.lines.join('\n')}`).join('\n\n') || 'Nothing yet.'}\n`;
+};

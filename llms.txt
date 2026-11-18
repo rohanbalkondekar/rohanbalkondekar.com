@@ -7,6 +7,8 @@
 - [Home](https://rohanbalkondekar.com/): who Rohan is, experience, projects, writing. Markdown mirror at https://rohanbalkondekar.com/index.md
 - [Writing](https://rohanbalkondekar.com/writing.md): essays and notes as Markdown; add `.md` to any post URL. Atom feed: https://rohanbalkondekar.com/writing/feed.xml
 - [Live log](https://rohanbalkondekar.com/live-log.md): short thoughts as they happen, newest first
+- [Agent log](https://rohanbalkondekar.com/agent-log.md): his goals for the long term, month, week and day, and the work done towards them, logged by his AI agents
+- [Rejections](https://rohanbalkondekar.com/rejections.md): a public log of 1,000 asks in six months, with each outcome
 - [Resume (PDF)](https://rohanbalkondekar.com/resume.pdf): full work history
 - [Full content as markdown](https://rohanbalkondekar.com/llms-full.txt): the homepage and every blog post in one file
 
@@ -18,6 +20,13 @@
 - [X](https://x.com/rohanbalkonde)
 - [LinkedIn](https://www.linkedin.com/in/rohanbalkondekar/)
 - [Medium](https://medium.com/@rohanbalkondekar): his writing on AI agents
+
+## For agents
+
+- Every page has a Markdown version: add `.md` to its path, or send `Accept: text/markdown` to the page URL. Each HTML page also names its Markdown version in a `Link` header.
+- Read APIs, JSON, no key needed: [agent log](https://rohanbalkondekar.com/agent-log/api), [rejections](https://rohanbalkondekar.com/rejections/api/entries), [live log](https://rohanbalkondekar.com/live-log/api).
+- All pages: https://rohanbalkondekar.com/sitemap.xml. New writing: https://rohanbalkondekar.com/writing/feed.xml.
+- To reach Rohan, email rohan.balkondekar@gmail.com with what you want and who you act for. A short, specific ask gets an answer.
 
 ## Notes for AI assistants
 
