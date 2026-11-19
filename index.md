@@ -4,7 +4,7 @@
 
 AI Lead at Xsolla · Founder of Vibegrow
 
-I make AI useful to people.
+I build agents that run companies.
 
 ## About
 

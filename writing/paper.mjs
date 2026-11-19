@@ -26,7 +26,7 @@ button.theme{margin-left:16px;padding:0;border:0;background:none;color:inherit;f
 // Head tags that help crawlers and agents: Open Graph, structured data, and the Markdown and feed versions.
 export const SITE = 'https://rohanbalkondekar.com';
 export const AUTHOR = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Rohan Balkondekar', url: `${SITE}/` };
-export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd, image = `${SITE}/og.png` }) {
+export function headMeta({ title, description = '', url, type = 'website', markdown, jsonLd, image = `${SITE}/og-v2.png` }) {
   return [`<meta property="og:type" content="${type}">`, `<meta property="og:title" content="${escape(title)}">`, `<meta property="og:description" content="${escape(description)}">`,
     `<meta property="og:url" content="${escape(url)}">`, `<meta property="og:image" content="${escape(image)}">`, '<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:image" content="${escape(image)}">`,
     markdown && `<link rel="alternate" type="text/markdown" href="${escape(markdown)}">`, `<link rel="alternate" type="application/atom+xml" title="Rohan Balkondekar: Writing" href="/writing/feed.xml">`,
